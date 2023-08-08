@@ -1,7 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import HomeScreen from "./Screens/HomeScreen";
 import ProductScreen from "./Screens/ProductScreen";
+import AllProductsScreen from "./Screens/AllProductsScreen";
 import MainHeader from "./components/MainHeader";
+import CartScreen from "./Screens/CartScreen";
 import { useState } from "react";
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -19,6 +21,7 @@ function App() {
   function handleRegisterClose() {
     setIsRegisterOpen(false);
   }
+ 
   return (
     <>
       <MainHeader
@@ -38,6 +41,9 @@ function App() {
           }
         />
         <Route path="/product" element={<ProductScreen />} />
+        <Route path="/products" element={<AllProductsScreen />} />
+        <Route path="/cart" element={<CartScreen/>} />
+        
       </Routes>
     </>
   );

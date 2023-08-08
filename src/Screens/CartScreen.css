@@ -1,0 +1,39 @@
+.container{
+    display: grid;
+    grid-template-columns: 60% 40%;
+    margin: 0 100px;
+    
+    
+    
+}
+
+.items-container{
+    grid-column: 1/span 1;
+    margin-right: 20px;
+}
+.cart-container{
+    grid-column: 2/span 1;
+    border: 3px solid #dddd;
+    border-radius: 10px;
+    padding: 30px;
+    position: relative;
+}
+.cart-container h2{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    font-weight: 500;
+    margin: 0;
+}
+.cart-container p{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+
+}
+.checkout-btn {
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    bottom: 20px;
+    background-color: #333333;
+}

@@ -12,8 +12,10 @@
   .shoe-name {
     grid-column: 4/4;
     grid-row: 1/2;
+    font-family: 'Open Sans', sans-serif;
     font-size: 80px;
     font-weight: bold;
+    margin: 0;
   }
   .shoe-container{
     grid-column: 2/3;
@@ -45,7 +47,11 @@
   }
   .description-container p {
     grid-row: 1;
-    border-right: 10px solid #000;
+    border-right: 8px solid #000;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    
 
   }
   

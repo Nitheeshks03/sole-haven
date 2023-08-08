@@ -25,9 +25,28 @@
     grid-row: 1 /span 4;
   }
 
-  .price {
+  .buttons{
+    margin-top: 40px;
+  }
+  .product-info h1{
+    font-family: 'Open Sans', sans-serif;
     font-size: 32px;
-    font-weight: 700;
+    font-weight: 600;
+  }
+  .product-info p{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .product-info h3{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .price {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 42px;
+    font-weight: 600;
   }
   
 

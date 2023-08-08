@@ -1,5 +1,7 @@
 import "./ProductScreen.css";
-import { Divider } from '@mantine/core';
+import { Divider } from "@mantine/core";
+import SizeSelector from "../components/SizeSelector";
+import { Button } from "@mantine/core";
 
 function ProductScreen() {
   return (
@@ -36,8 +38,17 @@ function ProductScreen() {
         <Divider />
         <p>Product Description</p>
         <Divider />
-        <p className='price'>$49</p>
-        
+        <h2 className="price">$49</h2>
+        <h3>SELECT SIZE</h3>
+        <SizeSelector />
+        <div className="buttons">
+          <Button variant="filled" color="dark" size="md">
+            Add To Cart
+          </Button>
+          <Button variant="outline" color="dark" size="md">
+            Add To Wishlist
+          </Button>
+        </div>
       </div>
     </div>
   );

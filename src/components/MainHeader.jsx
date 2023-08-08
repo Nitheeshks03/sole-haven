@@ -10,7 +10,7 @@ import {
   rem,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { MantineLogo } from "@mantine/ds";
+
 import { Link } from 'react-router-dom';
 
 
@@ -68,7 +68,7 @@ export default function MainHeader({handleLoginOpen, handleRegisterOpen}) {
     <Box pb={120} style={{paddingRight:'100px',paddingLeft:'100px'}}>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: "100%" }}>
-          <MantineLogo size={30} />
+         <h1 style={{margin:'0',fontFamily: 'Syncopate',fontSize:'24px'}}>Sole Haven</h1>
 
           <Group
             sx={{ height: "100%" }}
