@@ -1,0 +1,35 @@
+.product-container {
+    padding-left: 100px;
+    padding-right: 100px;
+    display: grid;
+    grid-template-columns: 2fr 1fr; 
+  }
+  
+  .image-container {
+    height: 600px;
+    display: grid;
+    grid-template-columns: 20% 1fr; /* Changed percentages to fractions for responsiveness */
+    grid-template-rows: 20% 20% 20% 20%; /* Using repeat for simplicity */
+    gap: 10px; /* Added gap for spacing between images */
+    overflow: hidden;
+  }
+  
+  .image-container img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+  }
+
+  .p1{
+    grid-column: 2;
+    grid-row: 1 /span 4;
+  }
+
+  .price {
+    font-size: 32px;
+    font-weight: 700;
+  }
+  
+
+  
+
