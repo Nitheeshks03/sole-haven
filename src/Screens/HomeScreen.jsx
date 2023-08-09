@@ -27,9 +27,9 @@ function HomeScreen({
             alt="Shoe"
             className="shoe-image"
           />
-          <Divider my="sm" />
+          
         </div>
-        <button className="buy-now-button">Buy Now</button>
+        
 
         <div className="description-container">
           <p>

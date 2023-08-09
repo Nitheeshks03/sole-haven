@@ -1,10 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import HomeScreen from "./Screens/HomeScreen";
-import ProductScreen from "./Screens/ProductScreen";
-import AllProductsScreen from "./Screens/AllProductsScreen";
+import HomeScreen from "./screens/HomeScreen";
+import ProductScreen from "./screens/ProductScreen";
+import AllProductsScreen from "./screens/AllProductsScreen";
 import MainHeader from "./components/MainHeader";
-import CartScreen from "./Screens/CartScreen";
+import Steps from "./components/Steps";
 import { useState } from "react";
+import Footer from "./components/Footer";
+const links = [{ label: "Home" }, { label: "About" }, { label: "Services" }];
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -21,7 +23,7 @@ function App() {
   function handleRegisterClose() {
     setIsRegisterOpen(false);
   }
- 
+
   return (
     <>
       <MainHeader
@@ -42,9 +44,9 @@ function App() {
         />
         <Route path="/product" element={<ProductScreen />} />
         <Route path="/products" element={<AllProductsScreen />} />
-        <Route path="/cart" element={<CartScreen/>} />
-        
+        <Route path="/cart" element={<Steps links={links} />} />
       </Routes>
+      <Footer links={links} />
     </>
   );
 }

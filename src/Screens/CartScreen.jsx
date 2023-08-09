@@ -26,12 +26,12 @@ function CartScreen() {
         <Cart data={sampleData} />
       </div>
       <div className="cart-container">
-        <h2>Cart Total</h2>
-        <p>Subtotal</p>
-        <p>Shipping</p>
-        <p>Tax</p>
-        <p>Total</p>
-        <Button className="checkout-btn">Proceed To Checkout</Button>
+        <h2>Cart Total</h2><hr/>
+        <p>Subtotal</p><hr/>
+        <p>Shipping</p><hr/>
+        <p>Tax</p><hr/>
+        <p style={{paddingBottom:'80px'}}>Total</p>
+        <Button className="checkout-btn" sx={{marginBottom:'20px'}}>Proceed To Checkout</Button>
       </div>
     </div>
   );
