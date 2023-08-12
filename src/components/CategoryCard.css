@@ -1,0 +1,47 @@
+.card {
+   
+    width: 250px;
+  height: 220px; 
+  background-color: hsl(22, 73%, 66%);
+  transition: background-color 0.2s;
+  position: relative;
+  overflow: visible;
+  border-radius: 1.5rem;
+  cursor: pointer;
+}
+.card img {
+  position: absolute;
+  top: -20px;
+  left: 100px;
+  width: calc(100% + 40px);
+  transition: translate 0.3s;
+}
+
+
+.card h2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.5em;
+  margin: 0;
+  font-size: 1.3em;
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+  transition: translate 0.3s;
+}
+
+.card:hover {
+  background-color: hsl(0, 37%, 73%);
+}
+
+
+.card:hover img{
+  translate: -40% 0;
+}
+
+.card:hover h2 {
+  translate: 0 180px;
+}
+
+

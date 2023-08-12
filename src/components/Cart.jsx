@@ -1,11 +1,14 @@
 import { Avatar, Badge, Table, Group, Text, ScrollArea, NumberInput } from '@mantine/core';
-
+import { CartContext, cartDispatchContext } from '../contexts/cartContext';
+import {  useContext } from 'react';
 
 
 const rolesData = ['Manager', 'Collaborator', 'Contractor'];
 
 export function Cart({ data }) {
-  const rows = data?.map((item) => (
+  const dispatch = useContext(cartDispatchContext);
+  const state = useContext(CartContext);
+  const rows = state.cartItems?.map((item) => (
     <tr  key={item.name}>
       <td>
         <Group spacing="sm">
@@ -26,8 +29,8 @@ export function Cart({ data }) {
       </td>
       <td>{item.rate}$</td>
       <td>
-        <Badge color="blue" variant="light">
-          🗑️
+        <Badge color="blue" variant="light" sx={{cursor:'pointer'}}>
+          delete
         </Badge>
       </td>
     </tr>

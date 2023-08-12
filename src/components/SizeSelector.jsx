@@ -1,4 +1,6 @@
 import { createStyles, SegmentedControl, rem } from "@mantine/core";
+import { cartDispatchContext } from '../contexts/cartContext';
+import { useContext, useState } from 'react';
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -28,13 +30,22 @@ const useStyles = createStyles((theme) => ({
 }));
 
 function SizeSelector() {
+  const dispatch = useContext(cartDispatchContext);
+  const [size, setSize] = useState("6");
+  const handleSizeChange = (value) => {
+    setSize(value);
+     dispatch({type:'SIZE',payload:value})              };
   const { classes } = useStyles();
+  
   return (
     <SegmentedControl
       radius="xl"
       size="md"
       data={["6", "7", "8", "9", "10",'11','12']}
       classNames={classes}
+      value={size}
+      onChange={handleSizeChange}
+      
     />
   );
 }

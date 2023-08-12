@@ -2,9 +2,9 @@
 import { Carousel } from "@mantine/carousel";
 
 const images = [
-  "src/assets/carousel-1.jpg",
-  "src/assets/carousel-2.jpg",
-  "src/assets/carousel-3.jpg",
+  "images/carousel-1.jpg",
+  "images/carousel-2.jpg",
+  "images/carousel-3.jpg",
 ];
 
 export default function Carousels() {

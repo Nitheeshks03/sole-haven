@@ -8,10 +8,11 @@
   .image-container {
     height: 600px;
     display: grid;
-    grid-template-columns: 20% 1fr; /* Changed percentages to fractions for responsiveness */
-    grid-template-rows: 20% 20% 20% 20%; /* Using repeat for simplicity */
-    gap: 10px; /* Added gap for spacing between images */
+    grid-template-columns: 20% 1fr; 
+    grid-template-rows: 20% 20% 20% 20%; 
+    gap: 10px;
     overflow: hidden;
+    padding-right: 50px;
   }
   
   .image-container img {
@@ -20,13 +21,18 @@
     object-fit: cover; 
   }
 
-  .p1{
+  .img-1{
     grid-column: 2;
     grid-row: 1 /span 4;
   }
 
   .buttons{
-    margin-top: 40px;
+    margin-top: 70px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  
+
   }
   .product-info h1{
     font-family: 'Open Sans', sans-serif;
@@ -45,7 +51,7 @@
   }
   .price {
     font-family: 'Open Sans', sans-serif;
-    font-size: 42px;
+    font-size: 32px;
     font-weight: 600;
   }
   

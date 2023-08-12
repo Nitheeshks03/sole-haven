@@ -1,4 +1,4 @@
-import { IconHeart } from '@tabler/icons-react';
+import { IconHeart } from "@tabler/icons-react";
 import {
   Card,
   Image,
@@ -9,17 +9,20 @@ import {
   ActionIcon,
   createStyles,
   rem,
-} from '@mantine/core';
-
+} from "@mantine/core";
+import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   card: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white, width: '350px',marginTop:'20px'
+    backgroundColor:
+      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
+    width: "350px",
+    marginTop: "20px",
   },
 
   section: {
     borderBottom: `${rem(1)} solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
+      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
     }`,
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.md,
@@ -31,53 +34,50 @@ const useStyles = createStyles((theme) => ({
   },
 
   label: {
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     fontSize: theme.fontSizes.xs,
     fontWeight: 700,
   },
 }));
 
-function ProductCard({ image, title, description, rating,price  }) {
-  const { classes} = useStyles();
-
-
- 
+function ProductCard({ image, title, description, rating, price, id }) {
+  const { classes } = useStyles();
 
   return (
-    <Card withBorder radius="md" p="md" className={classes.card}>
-      <Card.Section>
-        <Image src={image} alt={title} height={220} />
-      </Card.Section>
+    <Link to={`/products/${id}`} style={{ textDecoration: "none" }}>
+      <Card withBorder radius="md" p="md" className={classes.card}>
+        <Card.Section>
+          <Image src={image} alt={title} height={220} />
+        </Card.Section>
 
-      <Card.Section className={classes.section} mt="md">
-        <Group position="apart">
-          <Text fz="lg" fw={500}>
-            {title}
+        <Card.Section className={classes.section} mt="md">
+          <Group position="apart">
+            <Text fz="lg" fw={500}>
+              {title}
+            </Text>
+            <Badge size="sm">{rating}⭐</Badge>
+          </Group>
+          <Text fz="sm" mt="xs">
+            {description}
           </Text>
-          <Badge size="sm">{rating}</Badge>
+        </Card.Section>
+
+        <Card.Section className={classes.section} mt="md">
+          <Text fz="24px" fw={500}>
+            ₹{price}
+          </Text>
+        </Card.Section>
+
+        <Group mt="xs">
+          <Button radius="md" style={{ flex: 1 }}>
+            Add To Cart
+          </Button>
+          <ActionIcon variant="default" radius="md" size={36}>
+            <IconHeart size="1.1rem" className={classes.like} stroke={1.5} />
+          </ActionIcon>
         </Group>
-        <Text fz="sm" mt="xs">
-          {description}
-        </Text>
-      </Card.Section>
-
-       <Card.Section className={classes.section} mt="md">
-        <Text fz='38px'  fw={500}>
-            {price}
-        </Text>
-       </Card.Section>
-
-
-
-      <Group mt="xs">
-        <Button radius="md" style={{ flex: 1 }}>
-          Add To Cart
-        </Button>
-        <ActionIcon variant="default" radius="md" size={36}>
-          <IconHeart size="1.1rem" className={classes.like} stroke={1.5} />
-        </ActionIcon>
-      </Group>
-    </Card>
+      </Card>
+    </Link>
   );
 }
 

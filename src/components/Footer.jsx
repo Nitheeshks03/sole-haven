@@ -7,7 +7,7 @@ const useStyles = createStyles((theme) => ({
     marginTop: rem(120),
     borderTop: `${rem(1)} solid ${
       theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
-    }`, marginRight:rem(100),marginLeft:rem(100)
+    }`, marginRight:rem(100),marginLeft:rem(100),
   },
 
   inner: {

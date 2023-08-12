@@ -10,8 +10,7 @@ import {
   rem,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Link } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -51,43 +50,47 @@ const useStyles = createStyles((theme) => ({
       display: "none",
     },
   },
-
 }));
 
-export default function MainHeader({handleLoginOpen, handleRegisterOpen}) {
- 
+export default function MainHeader({ handleLoginOpen, handleRegisterOpen }) {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
-  const { classes} = useStyles();
- 
-
+  const { classes } = useStyles();
 
   return (
- 
-    <Box pb={80} style={{paddingRight:'100px',paddingLeft:'100px'}}>
+    <Box pb={80} style={{ paddingRight: "100px", paddingLeft: "100px" }}>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: "100%" }}>
-         <h1 style={{margin:'0',fontFamily: 'Syncopate',fontSize:'24px'}}>Sole Haven</h1>
+          <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
+            <h1
+              style={{ margin: "0", fontFamily: "Syncopate", fontSize: "24px" }}
+            >
+              Sole Haven
+            </h1>
+          </Link>
 
           <Group
             sx={{ height: "100%" }}
             spacing={0}
             className={classes.hiddenMobile}
           >
-            <a href="#" className={classes.link}>
+            <Link to={"/"} className={classes.link}>
               Home
-            </a>
-            <a href="#" className={classes.link}>
-              Men
-            </a>
-            <a href="#" className={classes.link}>
-              Women
-            </a>
+            </Link>
+            <Link className={classes.link}>Men</Link>
+            <Link className={classes.link}>Women</Link>
           </Group>
 
           <Group className={classes.hiddenMobile}>
-            <Button variant="default" onClick={handleLoginOpen} >Log in</Button>
-            <Button  onClick={handleRegisterOpen} variant='gradient'>Sign up</Button>
+            <Link to={"/cart"}>
+              <Button variant="default">Cart</Button>
+            </Link>
+            <Button variant="default" onClick={handleLoginOpen}>
+              Log in
+            </Button>
+            <Button onClick={handleRegisterOpen} variant="gradient">
+              Sign up
+            </Button>
           </Group>
 
           <Burger
@@ -108,7 +111,7 @@ export default function MainHeader({handleLoginOpen, handleRegisterOpen}) {
         zIndex={1000000}
       >
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
-          <Link to={'/'} className={classes.link}>
+          <Link to={"/"} className={classes.link}>
             Home
           </Link>
           <a href="#" className={classes.link}>
@@ -119,7 +122,7 @@ export default function MainHeader({handleLoginOpen, handleRegisterOpen}) {
           </a>
 
           <Group position="center" grow pb="xl" px="md">
-            <Button variant='default' >Log in</Button>
+            <Button variant="default">Log in</Button>
             <Button>Sign up</Button>
           </Group>
         </ScrollArea>
