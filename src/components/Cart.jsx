@@ -1,35 +1,36 @@
-import { Avatar, Badge, Table, Group, Text, ScrollArea, NumberInput } from '@mantine/core';
-import { CartContext, cartDispatchContext } from '../contexts/cartContext';
-import {  useContext } from 'react';
+import {
+  Avatar,
+  Badge,
+  Table,
+  Group,
+  Text,
+  ScrollArea,
+  NumberInput,
+} from "@mantine/core";
 
-
-const rolesData = ['Manager', 'Collaborator', 'Contractor'];
-
-export function Cart({ data }) {
-  const dispatch = useContext(cartDispatchContext);
-  const state = useContext(CartContext);
-  const rows = state.cartItems?.map((item) => (
-    <tr  key={item.name}>
+export function Cart({ cart }) {
+  const rows = cart?.map((item) => (
+    <tr key={item.product.name}>
       <td>
         <Group spacing="sm">
-          <Avatar size={40} src={item.avatar} radius={40} />
+          <Avatar size={40} src={item.product.image[0]} radius={40} />
           <div>
             <Text fz="sm" fw={500}>
-              {item.name}
+              {item.product.name}
             </Text>
             <Text fz="xs" c="dimmed">
-              {item.email}
+              {item.product.subCategory}
             </Text>
           </div>
         </Group>
       </td>
 
-      <td >
-        <NumberInput maw={100}/>
-      </td>
-      <td>{item.rate}$</td>
       <td>
-        <Badge color="blue" variant="light" sx={{cursor:'pointer'}}>
+        <NumberInput value={item.qty} maw={100} />
+      </td>
+      <td>₹{item.price}</td>
+      <td>
+        <Badge color="blue" variant="light" sx={{ cursor: "pointer" }}>
           delete
         </Badge>
       </td>

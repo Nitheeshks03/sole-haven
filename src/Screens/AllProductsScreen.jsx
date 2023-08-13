@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Loader } from "@mantine/core";
 import { axiosInstance } from "../axiosInstance";
 
-function AllProductsScreen() {
+function AllProductsScreen({ setCart,handleAddToCart }) {
   const {
     isLoading,
     isError,
@@ -37,10 +37,11 @@ function AllProductsScreen() {
             title={product.name}
             description={product.description}
             price={product.price}
-            image={product.image}
+            image={product.image[0]}
             rating={product.rating}
             product={product}
             id={product._id}
+            setCart={setCart}
           />
         ))}
       </div>

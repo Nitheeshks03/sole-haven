@@ -40,7 +40,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function ProductCard({ image, title, description, rating, price, id }) {
+function ProductCard({ image, title, description, rating, price, id , setCart}) {
   const { classes } = useStyles();
 
   return (
