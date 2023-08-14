@@ -6,21 +6,19 @@ import {
   Title,
   Button,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Navigate } from 'react-router-dom';
 
-export default function ShippingScreen() {
-  const form = useForm({
-    initialValues: {
-      name: "",
-      phone: "",
-      city: "",
-      Zipcode: "",
-      address: "",
-    },
-  });
-
+export default function ShippingScreen({
+  shippingAddress,
+  setShippingAddress,
+  handleStepChange,
+  
+}) {
+  const handleInputChange = (fieldName, value) => {
+    setShippingAddress({ ...shippingAddress, [fieldName]: value });
+  };
   return (
-    <form onSubmit={form.onSubmit(() => {})} style={{ margin: "50px 100px" }}>
+    <form style={{ margin: "50px 100px" }}>
       <Title
         order={2}
         size="h1"
@@ -39,28 +37,32 @@ export default function ShippingScreen() {
           placeholder="Your name"
           name="name"
           variant="filled"
-          {...form.getInputProps("name")}
+          onChange={(e) => handleInputChange("name", e.target.value)}
+       
         />
         <TextInput
           label="Phone"
           placeholder="Your phone number"
-          name="email"
+          name="phone"
           variant="filled"
-          {...form.getInputProps("email")}
+          onChange={(e) => handleInputChange("phone", e.target.value)}
+       
         />
         <TextInput
           label="City"
           placeholder="City"
           name="city"
           variant="filled"
-          {...form.getInputProps("subject")}
+          onChange={(e) => handleInputChange("city", e.target.value)}
+       
         />
         <TextInput
           label="Zip code"
           placeholder="zip code"
           name="zipcode"
           variant="filled"
-          {...form.getInputProps("subject")}
+          onChange={(e) => handleInputChange("zipcode", e.target.value)}
+       
         />
       </SimpleGrid>
 
@@ -73,11 +75,16 @@ export default function ShippingScreen() {
         autosize
         name="address"
         variant="filled"
-        {...form.getInputProps("message")}
+        onChange={(e) => handleInputChange("address", e.target.value)}
+      
       />
 
       <Group position="center" mt="xl">
-        <Button type="submit" size="md">
+        <Button
+          type="submit"
+          size="md"
+          onClick={ Navigate('/payment')}
+        >
           Proceed to Payment
         </Button>
       </Group>

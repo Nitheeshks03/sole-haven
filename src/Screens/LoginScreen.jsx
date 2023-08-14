@@ -86,12 +86,18 @@ function LoginModal({
 
   const loginMutation = useMutation({
     mutationKey: "user",
-    mutationFn: () => axiosInstance.post("/users/login", loginData),
+    mutationFn: () =>
+      axiosInstance.post("/users/login", loginData, {
+        withCredentials: true,
+      }),
     onSuccess: (data) => {
       localStorage.setItem("userInfo", JSON.stringify(data));
       handleLoginClose();
     },
   });
+  const handleLogin = () => {
+    loginMutation.mutate(loginData);
+  };
 
   return (
     <Container size={420} my={40}>
@@ -151,7 +157,7 @@ function LoginModal({
           fullWidth
           mt="xl"
           type="submit"
-          onClick={() => loginMutation.mutate({ loginData })}
+          onClick={handleLogin}
         >
           Sign in
         </Button>

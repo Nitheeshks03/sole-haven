@@ -5,7 +5,7 @@ import "./PaymentScreen.css";
 import { useContext } from 'react';
 import { CartContext } from '../contexts/CartContext';
 
-function PaymentScreen() {
+function PaymentScreen({shippingAddress}) {
   const { subTotal } = useContext(CartContext);
   const shipping =(0.15 * subTotal).toFixed(2);
   const tax = (0.18 * subTotal).toFixed(2);
@@ -18,9 +18,15 @@ function PaymentScreen() {
           <h2>Shipping</h2>
           <Paper shadow="xs" p="md" radius='xs'>
             <Text >
-              Address: Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco
+              <strong>Name: </strong> {shippingAddress.name}
+              <br />    
+              <strong>Phone: </strong> {shippingAddress.phone}
+              <br />
+              <strong>City: </strong> {shippingAddress.city}
+              <br />
+              <strong>Zipcode: </strong> {shippingAddress.zipcode}
+              <br />
+              <strong>Address: </strong> {shippingAddress.address}
             </Text>
           </Paper>
         </div>

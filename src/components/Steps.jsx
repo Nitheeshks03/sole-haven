@@ -1,12 +1,19 @@
-import  { useState } from 'react';
-import { Stepper, Button, Group } from '@mantine/core';
-import CartScreen from '../screens/CartScreen';
-import ShippingScreen from '../screens/ShippingScreen';
-import PaymentScreen from '../screens/PaymentScreen';
+import { useState } from "react";
+import { Stepper, Button, Group } from "@mantine/core";
+import CartScreen from "../screens/CartScreen";
+import ShippingScreen from "../screens/ShippingScreen";
+import PaymentScreen from "../screens/PaymentScreen";
 
-function Steps({ cart, setCart}) {
-  const [active, setActive] = useState(1);
+function Steps({ cart, setCart }) {
+  const [active, setActive] = useState(0);
   const [highestStepVisited, setHighestStepVisited] = useState(active);
+  const [shippingAddress, setShippingAddress] = useState({
+    name: "",
+    phone: "",
+    city: "",
+    Zipcode: "",
+    address: "",
+  });
 
   const handleStepChange = (nextStep) => {
     const isOutOfBounds = nextStep > 3 || nextStep < 0;
@@ -19,32 +26,40 @@ function Steps({ cart, setCart}) {
     setHighestStepVisited((hSC) => Math.max(hSC, nextStep));
   };
 
-  
-  const shouldAllowSelectStep = (step) => highestStepVisited >= step && active !== step;
+  const shouldAllowSelectStep = (step) =>
+    highestStepVisited >= step && active !== step;
 
   return (
     <>
-      <Stepper active={active} onStepClick={setActive} breakpoint="sm" style={{padding:'0 100px'}}>
+      <Stepper
+        active={active}
+        onStepClick={setActive}
+        breakpoint="sm"
+        style={{ padding: "0 100px" }}
+      >
         <Stepper.Step
           label="Cart"
           description="Check your cart"
           allowStepSelect={shouldAllowSelectStep(0)}
         >
-          <CartScreen/>
+          <CartScreen />
         </Stepper.Step>
         <Stepper.Step
           label="Shipping"
           description="Add your address"
           allowStepSelect={shouldAllowSelectStep(1)}
         >
-          <ShippingScreen />
+          <ShippingScreen
+            shippingAddress={shippingAddress}
+            setShippingAddress={setShippingAddress}
+          />
         </Stepper.Step>
         <Stepper.Step
           label="Payment"
           description="select payment method"
           allowStepSelect={shouldAllowSelectStep(2)}
         >
-          <PaymentScreen/>
+          <PaymentScreen shippingAddress={shippingAddress} />
         </Stepper.Step>
 
         <Stepper.Completed>
@@ -56,7 +71,7 @@ function Steps({ cart, setCart}) {
         <Button variant="default" onClick={() => handleStepChange(active - 1)}>
           Back
         </Button>
-        <Button onClick={() => handleStepChange(active + 1)}>Next step</Button>
+        <Button onClick={()=>handleStepChange(active + 1)}>Next step</Button>
       </Group>
     </>
   );
