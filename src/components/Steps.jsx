@@ -30,7 +30,7 @@ function Steps({ cart, setCart}) {
           description="Check your cart"
           allowStepSelect={shouldAllowSelectStep(0)}
         >
-          <CartScreen cart={cart} setCart={setCart} />
+          <CartScreen/>
         </Stepper.Step>
         <Stepper.Step
           label="Shipping"
@@ -44,7 +44,7 @@ function Steps({ cart, setCart}) {
           description="select payment method"
           allowStepSelect={shouldAllowSelectStep(2)}
         >
-          <PaymentScreen cart={cart}/>
+          <PaymentScreen/>
         </Stepper.Step>
 
         <Stepper.Completed>

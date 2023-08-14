@@ -8,9 +8,17 @@ import {
   Drawer,
   ScrollArea,
   rem,
+  Avatar,
+  Badge,
+  Tooltip,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link } from "react-router-dom";
+import { IconHeart, IconShoppingCart } from "@tabler/icons-react";
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "../contexts/CartContext";
+import ProfileMenu from './ProfileMenu';
+
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -52,10 +60,17 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function MainHeader({ handleLoginOpen, handleRegisterOpen }) {
+export default function MainHeader({ handleLoginOpen, handleRegisterOpen, isLoginOpen }) {
+  const [userInfo, setUserInfo] = useState("");
+  const userName = userInfo ? userInfo.data.name : "";
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+    setUserInfo(user);
+  }, [isLoginOpen]);
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes } = useStyles();
+  const { cartQty } = useContext(CartContext);
 
   return (
     <Box pb={80} style={{ paddingRight: "100px", paddingLeft: "100px" }}>
@@ -82,15 +97,35 @@ export default function MainHeader({ handleLoginOpen, handleRegisterOpen }) {
           </Group>
 
           <Group className={classes.hiddenMobile}>
-            <Link to={"/cart"}>
-              <Button variant="default">Cart</Button>
+            <Link to={"/wishlist"}>
+              <Tooltip label="Wishlist" position="left">
+                <IconHeart
+                  size="1.8rem"
+                  color="red"
+                  className={classes.like}
+                  stroke={1.2}
+                />
+              </Tooltip>
             </Link>
-            <Button variant="default" onClick={handleLoginOpen}>
-              Log in
-            </Button>
-            <Button onClick={handleRegisterOpen} variant="gradient">
-              Sign up
-            </Button>
+            <Link to={"/cart"}>
+              <Tooltip label="Cart" position="bottom">
+                <IconShoppingCart size="1.8rem" color="grey" stroke={1.2} />
+              </Tooltip>
+              <Badge>{cartQty}</Badge>
+            </Link>
+
+            {userInfo ? (
+              <ProfileMenu userName={userName}/>
+            ) : (
+              <>
+                <Button variant="default" onClick={handleLoginOpen}>
+                  Log in
+                </Button>
+                <Button onClick={handleRegisterOpen} variant="gradient">
+                  Sign up
+                </Button>
+              </>
+            )}
           </Group>
 
           <Burger

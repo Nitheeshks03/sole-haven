@@ -17,7 +17,6 @@ export function Cart() {
     const updatedCart = [...cart];
     updatedCart[itemIndex].qty = newQty;
     setCart(updatedCart);
-    console.log(updatedCart);
   };
 
   const rows = cart?.map((item, index) => (

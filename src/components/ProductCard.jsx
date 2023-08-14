@@ -6,12 +6,11 @@ import {
   Group,
   Badge,
   Button,
-  ActionIcon,
   createStyles,
   rem,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
-import { CartContext } from "../contexts/CartContext";
+
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -45,8 +44,12 @@ function ProductCard({ image, title, description, rating, price, id }) {
   const { classes } = useStyles();
 
   return (
-    <Link to={`/products/${id}`} style={{ textDecoration: "none" }}>
-      <Card withBorder radius="md" p="md" className={classes.card}>
+   
+      <Card withBorder radius="md" p="md" className={classes.card} sx={{'&:hover':{
+        boxShadow: '0 0 6px 0 rgba(0,0,0,0.2)',scale:'1.02',transition:'all 0.1s ease-in'
+      }
+      }}>
+         <Link to={`/products/${id}`} style={{ textDecoration: "none",color:'black'}}>
         <Card.Section>
           <Image src={image} alt={title} height={220} />
         </Card.Section>
@@ -68,16 +71,19 @@ function ProductCard({ image, title, description, rating, price, id }) {
             ₹{price}
           </Text>
         </Card.Section>
+        </Link>
 
         <Group mt="xs">
-          <Button radius="md" style={{ flex: 1 }}>
-            Add To Cart{" "}
-            <IconHeart size="1.1rem" className={classes.like} stroke={1.5} />
+          <Button radius="md" variant='outline' style={{ flex: 1 }}>
+            Add to Wishlist
+            <IconHeart size="1.1rem" style={{marginLeft:'20px'}} className={classes.like} stroke={1.5} />
           </Button>
-          <ActionIcon variant="default" radius="md" size={36}></ActionIcon>
+          
         </Group>
       </Card>
-    </Link>
+      
+      
+    
   );
 }
 

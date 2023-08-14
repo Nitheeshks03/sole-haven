@@ -35,12 +35,13 @@ function App() {
       <MainHeader
         handleLoginOpen={handleLoginOpen}
         handleRegisterOpen={handleRegisterOpen}
+        isLoginOpen={isLoginOpen}
       />
       <Routes>
         <Route path="/" element={<HomeScreen />} />
         <Route path="/products/:id" element={<ProductScreen />} />
         <Route path="/products" element={<AllProductsScreen />} />
-        <Route path="/cart" element={<Steps links={links} />} />
+        <Route path="/cart" element={<Steps/>} />
       </Routes>
       </CartProvider>
       {isLoginOpen && <LoginScreen handleLoginClose={handleLoginClose} />}

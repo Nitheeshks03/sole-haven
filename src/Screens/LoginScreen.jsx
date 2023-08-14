@@ -11,8 +11,8 @@ import {
   Group,
   Button,
 } from "@mantine/core";
-import ErrorAlert from "../components/ErrorAlert";
-import Success from "../components/Success";
+import { axiosInstance } from "../axiosInstance.js";
+import { useMutation } from "@tanstack/react-query";
 const MODAL_STYLES = {
   position: "fixed",
   height: "500px",
@@ -40,80 +40,59 @@ const OVERLAY_STYLES = {
 function LoginScreen({ handleLoginClose }) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [loginSuccess, setLoginSuccess] = useState(false);
-  const [errorAlert, setErrorAlert] = useState(false);
-
-  const handleLoginSuccess = () => {
-    setLoginSuccess(true);
-  };
-
-  const handleErrorAlert = () => {
-    setErrorAlert(true);
-  };
-
-  const handleLogin = async () => {
-    try {
-      const loginData = await fetch("http://localhost:5000/api/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-
-      if (!loginData.ok) {
-        const errorData = await loginData.json();
-        console.error("Invalid email or password", errorData);
-        handleErrorAlert();
-      }
-
-      const data = await loginData.json();
-      console.log("Login Successful", data);
-      handleLoginSuccess();
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
 
   return (
     <>
-      {errorAlert && <ErrorAlert message="Login failed" />}
-      {loginSuccess && <Success message="Login successful" />}
-        <>
-          <div style={OVERLAY_STYLES} />
-          <div style={MODAL_STYLES}>
-            <button
-              style={{
-                position: "absolute",
-                right: "0",
-                top: "0",
-                fontSize: "20px",
-                cursor: "pointer",
-              }}
-              onClick={handleLoginClose}
-            >
-              &times;
-            </button>
+      <div style={OVERLAY_STYLES} />
+      <div style={MODAL_STYLES}>
+        <button
+          style={{
+            position: "absolute",
+            right: "0",
+            top: "0",
+            fontSize: "20px",
+            cursor: "pointer",
+          }}
+          onClick={handleLoginClose}
+        >
+          &times;
+        </button>
 
-            <LoginModal
-              email={email}
-              setEmail={setEmail}
-              password={password}
-              setPassword={setPassword}
-              handleLogin={handleLogin}
-            />
-          </div>
-        </>
+        <LoginModal
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+          handleLoginClose={handleLoginClose}
+        />
+      </div>
     </>
   );
 }
 
 export default LoginScreen;
 
-function LoginModal({ email, setEmail, password, setPassword, handleLogin }) {
+function LoginModal({
+  email,
+  setEmail,
+  password,
+  setPassword,
+  handleLoginClose,
+}) {
+  const loginData = {
+    email,
+    password,
+  };
+
+  const loginMutation = useMutation({
+    mutationKey: "user",
+    mutationFn: () => axiosInstance.post("/users/login", loginData),
+    onSuccess: (data) => {
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      handleLoginClose();
+    },
+  });
+
   return (
     <Container size={420} my={40}>
       <Title
@@ -168,7 +147,12 @@ function LoginModal({ email, setEmail, password, setPassword, handleLogin }) {
             Forgot password?
           </Anchor>
         </Group>
-        <Button fullWidth mt="xl" type="submit" onClick={handleLogin}>
+        <Button
+          fullWidth
+          mt="xl"
+          type="submit"
+          onClick={() => loginMutation.mutate({ loginData })}
+        >
           Sign in
         </Button>
       </Paper>

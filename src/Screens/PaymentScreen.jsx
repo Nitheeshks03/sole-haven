@@ -43,10 +43,10 @@ function PaymentScreen() {
       </div>
       <div className="order-summary">
       <h2>Order Summary</h2><hr/>
-        <p>Subtotal - {subTotal}</p><hr/>
-        <p>Shipping - {shipping}</p><hr/>
-        <p>Tax - {tax}</p><hr/>
-        <h4>Total - {total}</h4>
+        <p>Subtotal - ₹{subTotal}</p><hr/>
+        <p>Shipping - ₹{shipping}</p><hr/>
+        <p>Tax - ₹{tax}</p><hr/>
+        <h4>Total - ₹{total}</h4>
         <Button className='order-btn'>Place order</Button>
       </div>
     </div>

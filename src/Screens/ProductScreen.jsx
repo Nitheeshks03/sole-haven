@@ -10,7 +10,7 @@ import ErrorAlert from '../components/ErrorAlert';
 
 function ProductScreen() {
 
-  const {handleAddToCart, existItem} = useContext(CartContext);
+  const {handleAddToCart, existItem, cart} = useContext(CartContext);
 
   const [size, setSize] = useState("6");
   const { id: productId } = useParams();
@@ -24,7 +24,7 @@ function ProductScreen() {
   );
   const handleAddItem=()=>{
     handleAddToCart(product, size, 1);
-    localStorage.setItem("cart", JSON.stringify(product));
+    localStorage.setItem("cart", JSON.stringify(cart));
   }
 
 
