@@ -5,18 +5,14 @@ import ProductScreen from "./screens/ProductScreen";
 import AllProductsScreen from "./screens/AllProductsScreen";
 import MainHeader from "./components/MainHeader";
 import Steps from "./components/Steps";
-import { useState} from "react";
+import {  useState } from "react";
 import Footer from "./components/Footer";
 import LoginScreen from "./screens/LoginScreen";
+import { CartProvider } from './contexts/CartContext';
 
 const links = [{ label: "Home" }, { label: "About" }, { label: "Services" }];
 
 function App() {
-  const [cart, setCart] = useState([]);
-  const [existItem, setExistItem] = useState(false);
-
-  console.log(cart);
-
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   function handleLoginOpen() {
@@ -33,50 +29,20 @@ function App() {
     setIsRegisterOpen(false);
   }
 
-  const handleAddToCart = (product, size, qty) => {
-    const newItem = {
-      product,
-      qty,
-      size,
-    };
-    if (cart.find((item) => item.product._id === product._id)) {
-      setExistItem(true);
-    } else {
-      setCart((items) => [...items, newItem]);
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-  };
-
   return (
     <>
+    <CartProvider>
       <MainHeader
         handleLoginOpen={handleLoginOpen}
         handleRegisterOpen={handleRegisterOpen}
       />
       <Routes>
         <Route path="/" element={<HomeScreen />} />
-        <Route
-          path="/products/:id"
-          element={
-            <ProductScreen
-              setCart={setCart}
-              handleAddToCart={handleAddToCart}
-              existItem={existItem}
-            />
-          }
-        />
-        <Route
-          path="/products"
-          element={
-            <AllProductsScreen
-              setCart={setCart}
-              handleAddToCart={handleAddToCart}
-            />
-          }
-        />
-        <Route path="/cart" element={<Steps cart={cart} links={links} />} />
+        <Route path="/products/:id" element={<ProductScreen />} />
+        <Route path="/products" element={<AllProductsScreen />} />
+        <Route path="/cart" element={<Steps links={links} />} />
       </Routes>
+      </CartProvider>
       {isLoginOpen && <LoginScreen handleLoginClose={handleLoginClose} />}
       {isRegisterOpen && (
         <RegisterScreen handleRegisterClose={handleRegisterClose} />

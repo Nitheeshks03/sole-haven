@@ -25,9 +25,7 @@ function HomeScreen() {
         
         <div className="description-container">
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi
-            aperiam molestiae ratione ut est nulla amet temporibus nam,
-            voluptatem reiciendis optio
+         
           </p>
         </div>
       </div>

@@ -1,7 +1,5 @@
 import { createStyles, SegmentedControl, rem } from "@mantine/core";
 
-import { useState } from "react";
-
 const useStyles = createStyles((theme) => ({
   root: {
     backgroundColor:

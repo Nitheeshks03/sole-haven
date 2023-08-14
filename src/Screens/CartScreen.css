@@ -1,10 +1,7 @@
 .container{
     display: grid;
     grid-template-columns: 60% 40%;
-    margin: 100px 100px;
-    
-    
-    
+    margin: 100px 100px; 
 }
 
 .items-container{
@@ -14,6 +11,7 @@
 .cart-container{
     grid-column: 2/span 1;
     border: 3px solid #dddd;
+    height: 250px;
     border-radius: 10px;
     padding: 20px 30px;
     position: relative;
@@ -32,6 +30,7 @@
 }
 .checkout-btn {
     position: absolute;
+    
     left: 50%;
     translate: -50%;
     bottom: 10px;

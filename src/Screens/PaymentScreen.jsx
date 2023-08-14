@@ -1,24 +1,16 @@
-import Cart from "../Components/Cart";
+import Cart from "../components/Cart";
 import { Select } from "@mantine/core";
 import { Text, Paper, Button } from "@mantine/core";
 import "./PaymentScreen.css";
-const sampleData = [
-    {
-      avatar: "avatar-url-1",
-      name: "John Doe",
-      job: "Engineer",
-      email: "john@example.com",
-      rate: 25,
-    },
-    {
-      avatar: "avatar-url-2",
-      name: "Jane Smith",
-      job: "Designer",
-      email: "jane@example.com",
-      rate: 40,
-    },
-  ];
+import { useContext } from 'react';
+import { CartContext } from '../contexts/CartContext';
+
 function PaymentScreen() {
+  const { subTotal } = useContext(CartContext);
+  const shipping =(0.15 * subTotal).toFixed(2);
+  const tax = (0.18 * subTotal).toFixed(2);
+  const total = (Number(subTotal) + Number(shipping) + Number(tax)).toFixed(2);
+  
   return (
     <div className="payment-container">
       <div className="order">
@@ -46,15 +38,15 @@ function PaymentScreen() {
         </div>
         <div className="cart-items">
           <h2>Cart Items</h2>
-          <Cart data={sampleData} />
+          <Cart />
         </div>
       </div>
       <div className="order-summary">
       <h2>Order Summary</h2><hr/>
-        <p>Subtotal</p><hr/>
-        <p>Shipping</p><hr/>
-        <p>Tax</p><hr/>
-        <p>Total</p>
+        <p>Subtotal - {subTotal}</p><hr/>
+        <p>Shipping - {shipping}</p><hr/>
+        <p>Tax - {tax}</p><hr/>
+        <h4>Total - {total}</h4>
         <Button className='order-btn'>Place order</Button>
       </div>
     </div>

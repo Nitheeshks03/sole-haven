@@ -1,15 +1,17 @@
 import "./ProductScreen.css";
-import { Divider } from "@mantine/core";
 import SizeSelector from "../components/SizeSelector";
-import { Button } from "@mantine/core";
+import { Button,Loader,Divider } from "@mantine/core";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../axiosInstance.js";
-import { Loader } from "@mantine/core";
-import { useState } from 'react';
+import { useState ,useContext} from 'react';
+import { CartContext } from '../contexts/CartContext';
 import ErrorAlert from '../components/ErrorAlert';
 
-function ProductScreen({handleAddToCart,existItem}) {
+function ProductScreen() {
+
+  const {handleAddToCart, existItem} = useContext(CartContext);
+
   const [size, setSize] = useState("6");
   const { id: productId } = useParams();
 
@@ -20,10 +22,11 @@ function ProductScreen({handleAddToCart,existItem}) {
   } = useQuery(["product"], () =>
     axiosInstance.get(`/products/${productId}`).then((res) => res.data)
   );
-
   const handleAddItem=()=>{
     handleAddToCart(product, size, 1);
+    localStorage.setItem("cart", JSON.stringify(product));
   }
+
 
  
 
@@ -42,7 +45,7 @@ function ProductScreen({handleAddToCart,existItem}) {
       <div className="product-info">
         {isError && <div>Something went wrong ...</div>}
         {isLoading && <Loader />}
-        {existItem && <ErrorAlert message="Item already exist in cart"/>}
+        {existItem && <ErrorAlert message="Item is already in cart"/>}
         <h1>{product?.name}</h1>
         <Divider />
         <p>{product?.description}</p>

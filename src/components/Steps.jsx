@@ -4,7 +4,7 @@ import CartScreen from '../screens/CartScreen';
 import ShippingScreen from '../screens/ShippingScreen';
 import PaymentScreen from '../screens/PaymentScreen';
 
-function Steps({ cart}) {
+function Steps({ cart, setCart}) {
   const [active, setActive] = useState(1);
   const [highestStepVisited, setHighestStepVisited] = useState(active);
 
@@ -30,7 +30,7 @@ function Steps({ cart}) {
           description="Check your cart"
           allowStepSelect={shouldAllowSelectStep(0)}
         >
-          <CartScreen cart={cart}/>
+          <CartScreen cart={cart} setCart={setCart} />
         </Stepper.Step>
         <Stepper.Step
           label="Shipping"
@@ -44,7 +44,7 @@ function Steps({ cart}) {
           description="select payment method"
           allowStepSelect={shouldAllowSelectStep(2)}
         >
-          <PaymentScreen />
+          <PaymentScreen cart={cart}/>
         </Stepper.Step>
 
         <Stepper.Completed>

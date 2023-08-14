@@ -11,6 +11,7 @@ import {
   rem,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
+import { CartContext } from "../contexts/CartContext";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -40,7 +41,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function ProductCard({ image, title, description, rating, price, id , setCart}) {
+function ProductCard({ image, title, description, rating, price, id }) {
   const { classes } = useStyles();
 
   return (
@@ -70,11 +71,10 @@ function ProductCard({ image, title, description, rating, price, id , setCart}) 
 
         <Group mt="xs">
           <Button radius="md" style={{ flex: 1 }}>
-            Add To Cart
-          </Button>
-          <ActionIcon variant="default" radius="md" size={36}>
+            Add To Cart{" "}
             <IconHeart size="1.1rem" className={classes.like} stroke={1.5} />
-          </ActionIcon>
+          </Button>
+          <ActionIcon variant="default" radius="md" size={36}></ActionIcon>
         </Group>
       </Card>
     </Link>

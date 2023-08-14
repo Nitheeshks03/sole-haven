@@ -8,7 +8,7 @@ function ErrorAlert({ message }) {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsVisible(false);
-    }, 4000);
+    }, 3000);
 
     return () => {
       clearTimeout(timeout);
