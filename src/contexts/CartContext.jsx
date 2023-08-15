@@ -25,14 +25,18 @@ const CartProvider = ({ children }) => {
       setCart((items) => [...items, newItem]);
     }
   };
-  const subTotal =cart?.reduce((acc, item) => {
-    return acc + item.product.price * item.qty;
-    },0).toFixed(2);
+  const subTotal = cart
+    ?.reduce((acc, item) => {
+      return acc + item.product.price * item.qty;
+    }, 0)
+    .toFixed(2);
 
-    const cartQty= cart.length;
+  const cartQty = cart.length;
 
   return (
-    <CartContext.Provider value={{ cart, setCart, handleAddToCart, existItem , subTotal, cartQty}}>
+    <CartContext.Provider
+      value={{ cart, setCart, handleAddToCart, existItem, subTotal, cartQty }}
+    >
       {children}
     </CartContext.Provider>
   );

@@ -61,6 +61,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function MainHeader({ handleLoginOpen, handleRegisterOpen, isLoginOpen }) {
+  
   const [userInfo, setUserInfo] = useState("");
   const userName = userInfo ? userInfo.data.name : "";
   useEffect(() => {
@@ -78,7 +79,7 @@ export default function MainHeader({ handleLoginOpen, handleRegisterOpen, isLogi
         <Group position="apart" sx={{ height: "100%" }}>
           <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
             <h1
-              style={{ margin: "0", fontFamily: "Syncopate", fontSize: "24px" }}
+              style={{ margin: "0", fontFamily: "Montserrat", fontSize: "24px",fontWeight:'normal' }}
             >
               Sole Haven
             </h1>

@@ -1,47 +1,51 @@
-.card {
-   
-    width: 250px;
-  height: 220px; 
-  background-color: hsl(22, 73%, 66%);
-  transition: background-color 0.2s;
-  position: relative;
-  overflow: visible;
-  border-radius: 1.5rem;
-  cursor: pointer;
-}
-.card img {
-  position: absolute;
-  top: -20px;
-  left: 100px;
-  width: calc(100% + 40px);
-  transition: translate 0.3s;
-}
 
 
-.card h2 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 0.5em;
+figure {
+  aspect-ratio: 8 / 5;
+  --bg: hsl(330 80% calc(90% - (var(--hover) * 10%)));
+  --accent: hsl(280 80% 40%);
+  transition: background 0.2s;
+  background:
+    radial-gradient(circle at top left, var(--accent), transparent 75%),
+    var(--bg);
   margin: 0;
-  font-size: 1.3em;
-  font-weight: 400;
-  font-family: "Montserrat", sans-serif;
-  transition: translate 0.3s;
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
 }
 
-.card:hover {
-  background-color: hsl(0, 37%, 73%);
+figure:after {
+  content: "";
+  position: absolute;
+  width: 20%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  bottom: 0%;
+  left: 10%;
+  background: linear-gradient(-65deg, var(--bg) 50%, var(--accent) 50%);
+  filter: blur(25px);
+  transform:
+    translateX(calc(var(--hover) * 15%))
+    scale(calc(1 + (var(--hover) * 0.2)));
+  transition: transform 0.2s, background 0.2s;
 }
 
-
-.card:hover img{
-  translate: -40% 0;
+.card-img {
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  width: 80%;
+  transform:
+    translateX(calc(var(--hover) * -15%))
+    scale(calc(1 + (var(--hover) * 0.2)));
+  transition: transform 0.2s;
 }
 
-.card:hover h2 {
-  translate: 0 180px;
+.category-card {
+  --hover: 0;
+  width: 300px;
 }
 
-
+.category-card:hover {
+  --hover: 1;
+}

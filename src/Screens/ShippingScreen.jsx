@@ -12,11 +12,17 @@ export default function ShippingScreen({
   shippingAddress,
   setShippingAddress,
   handleStepChange,
+  active,
   
 }) {
   const handleInputChange = (fieldName, value) => {
     setShippingAddress({ ...shippingAddress, [fieldName]: value });
   };
+  const handleStep=()=>{
+    localStorage.setItem('shippingAddress',JSON.stringify(shippingAddress));
+    handleStepChange(active+1);
+
+  }
   return (
     <form style={{ margin: "50px 100px" }}>
       <Title
@@ -37,6 +43,7 @@ export default function ShippingScreen({
           placeholder="Your name"
           name="name"
           variant="filled"
+          required
           onChange={(e) => handleInputChange("name", e.target.value)}
        
         />
@@ -45,6 +52,7 @@ export default function ShippingScreen({
           placeholder="Your phone number"
           name="phone"
           variant="filled"
+          required
           onChange={(e) => handleInputChange("phone", e.target.value)}
        
         />
@@ -53,6 +61,7 @@ export default function ShippingScreen({
           placeholder="City"
           name="city"
           variant="filled"
+          required
           onChange={(e) => handleInputChange("city", e.target.value)}
        
         />
@@ -61,6 +70,7 @@ export default function ShippingScreen({
           placeholder="zip code"
           name="zipcode"
           variant="filled"
+          required
           onChange={(e) => handleInputChange("zipcode", e.target.value)}
        
         />
@@ -75,15 +85,16 @@ export default function ShippingScreen({
         autosize
         name="address"
         variant="filled"
+        required
         onChange={(e) => handleInputChange("address", e.target.value)}
       
       />
 
-      <Group position="center" mt="xl">
+      <Group position='center' mt="xl">
         <Button
           type="submit"
           size="md"
-          onClick={ Navigate('/payment')}
+          onClick={handleStep}
         >
           Proceed to Payment
         </Button>

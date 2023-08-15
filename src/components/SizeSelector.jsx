@@ -37,7 +37,7 @@ function SizeSelector({size, setSize}) {
 
   return (
     <SegmentedControl
-      radius="xl"
+      radius="sm"
       size="md"
       data={["6", "7", "8", "9", "10", "11", "12"]}
       classNames={classes}

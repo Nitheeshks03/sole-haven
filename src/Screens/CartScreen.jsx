@@ -1,11 +1,14 @@
 import Cart from "../components/Cart";
 import "./CartScreen.css";
-import { Button } from "@mantine/core";
+import { Button,Divider } from "@mantine/core";
 import { CartContext } from '../contexts/CartContext';
 import { useContext } from 'react';
-function CartScreen() {
+function CartScreen({handleStepChange,active}) {
   const {subTotal} = useContext(CartContext);
 
+  const handleStep=()=>{
+    handleStepChange(active+1);
+  }
 
 
   return (
@@ -15,10 +18,10 @@ function CartScreen() {
       </div>
       <div className="cart-container">
         <h2>Cart Total</h2>
-        <hr />
+        <Divider />
         <p>Subtotal : ₹{subTotal}</p>
-        <hr />
-        <Button className="checkout-btn">Proceed To Checkout</Button>
+        <Divider />
+        <Button className="checkout-btn" onClick={handleStep}  >Proceed To Checkout</Button>
       </div>
     </div>
   );

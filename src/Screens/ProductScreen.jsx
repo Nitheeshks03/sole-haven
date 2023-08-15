@@ -24,7 +24,6 @@ function ProductScreen() {
   );
   const handleAddItem=()=>{
     handleAddToCart(product, size, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
   }
 
 
@@ -43,9 +42,7 @@ function ProductScreen() {
         ))}
       </div>
       <div className="product-info">
-        {isError && <div>Something went wrong ...</div>}
         {isLoading && <Loader />}
-        {existItem && <ErrorAlert message="Item is already in cart"/>}
         <h1>{product?.name}</h1>
         <Divider />
         <p>{product?.description}</p>
@@ -59,7 +56,6 @@ function ProductScreen() {
             color="dark"
             size="md"
             onClick={handleAddItem}
-            disabled={existItem}
           >
             Add To Cart
           </Button>

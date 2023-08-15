@@ -10,8 +10,7 @@ import {
   rem,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
-import { useContext } from 'react';
-import { WishListContext } from '../contexts/WishListContext';
+
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -41,25 +40,8 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function ProductCard({
-  image,
-  title,
-  description,
-  rating,
-  price,
-  id,
-  product,
-}) {
-  const {wishList,setWishList} = useContext(WishListContext);
+function WishListCard({ product: { _id, image, name, description, price, rating }}) {
   const { classes } = useStyles();
-
-  const handleWishList = () => {
-    setWishList([...wishList, product]);
-  };
-
-
-
-
   return (
     <Card
       withBorder
@@ -74,22 +56,19 @@ function ProductCard({
         },
       }}
     >
-      <Link
-        to={`/products/${id}`}
-        style={{ textDecoration: "none", color: "black" }}
-      >
+    
         <Card.Section>
-          <Image src={image} alt={title} height={220} />
+          <Image src={image[0]} alt={name} height={220} />
         </Card.Section>
 
         <Card.Section className={classes.section} mt="md">
           <Group position="apart">
             <Text fz="lg" fw={500}>
-              {title}
+              {name}
             </Text>
             <Badge size="sm">{rating}⭐</Badge>
           </Group>
-          <Text fz="sm" mt="xs">
+          <Text fz="sm" mt="xs" sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
             {description}
           </Text>
         </Card.Section>
@@ -99,21 +78,13 @@ function ProductCard({
             ₹{price}
           </Text>
         </Card.Section>
-      </Link>
-
       <Group mt="xs">
-        <Button radius="md" variant="outline" style={{ flex: 1 }} onClick={handleWishList}>
-          Add to Wishlist
-          <IconHeart
-            size="1.1rem"
-            style={{ marginLeft: "20px" }}
-            className={classes.like}
-            stroke={1.5}
-          />
+        <Button radius="md" variant="outline" style={{ flex: 1 }}>
+          View Product
         </Button>
       </Group>
     </Card>
   );
 }
 
-export default ProductCard;
+export default WishListCard;

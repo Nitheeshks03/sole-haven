@@ -39,9 +39,8 @@ function AllProductsScreen() {
             price={product.price}
             image={product.image[0]}
             rating={product.rating}
-            product={product}
             id={product._id}
-            
+            product={product}
           />
         ))}
       </div>

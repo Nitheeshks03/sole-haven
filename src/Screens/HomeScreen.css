@@ -19,11 +19,12 @@
   }
   .shoe-container{
     grid-column: 2/3;
+ 
   }
   
   .shoe-image {
     transform: rotate(-40deg);
-    width: 700px;
+    width: 700px;  
   }
   
 

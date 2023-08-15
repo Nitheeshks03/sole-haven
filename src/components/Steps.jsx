@@ -35,14 +35,16 @@ function Steps({ cart, setCart }) {
         active={active}
         onStepClick={setActive}
         breakpoint="sm"
-        style={{ padding: "0 100px" }}
+        sx={{ padding: "0 100px" }}
+        
       >
         <Stepper.Step
           label="Cart"
           description="Check your cart"
           allowStepSelect={shouldAllowSelectStep(0)}
+          
         >
-          <CartScreen />
+          <CartScreen handleStepChange={handleStepChange} active={active} />
         </Stepper.Step>
         <Stepper.Step
           label="Shipping"
@@ -52,6 +54,8 @@ function Steps({ cart, setCart }) {
           <ShippingScreen
             shippingAddress={shippingAddress}
             setShippingAddress={setShippingAddress}
+            handleStepChange={handleStepChange}
+            active={active}
           />
         </Stepper.Step>
         <Stepper.Step
@@ -67,11 +71,10 @@ function Steps({ cart, setCart }) {
         </Stepper.Completed>
       </Stepper>
 
-      <Group position="center" mt="xl">
-        <Button variant="default" onClick={() => handleStepChange(active - 1)}>
+      <Group position='center'  mt="xl">
+        <Button variant="default"  onClick={() => handleStepChange(active - 1)}>
           Back
         </Button>
-        <Button onClick={()=>handleStepChange(active + 1)}>Next step</Button>
       </Group>
     </>
   );
