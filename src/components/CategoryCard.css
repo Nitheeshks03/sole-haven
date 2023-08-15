@@ -1,17 +1,18 @@
-
-
-figure {
-  aspect-ratio: 8 / 5;
-  --bg: hsl(330 80% calc(90% - (var(--hover) * 10%)));
-  --accent: hsl(280 80% 40%);
-  transition: background 0.2s;
-  background:
-    radial-gradient(circle at top left, var(--accent), transparent 75%),
-    var(--bg);
+.card-content h3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  width: 100%;
   margin: 0;
-  position: relative;
-  overflow: hidden;
-  border-radius: 1rem;
+  padding: 0;
+  z-index: 10;
+
 }
 
 figure:after {
@@ -43,7 +44,8 @@ figure:after {
 
 .category-card {
   --hover: 0;
-  width: 300px;
+  width: 250px;
+  position: relative;
 }
 
 .category-card:hover {

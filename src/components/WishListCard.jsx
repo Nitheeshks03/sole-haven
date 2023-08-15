@@ -1,16 +1,17 @@
-import { IconHeart } from "@tabler/icons-react";
 import {
   Card,
-  Image,
   Text,
   Group,
   Badge,
   Button,
   createStyles,
   rem,
+  CloseButton,
+  Tooltip,
 } from "@mantine/core";
-import { Link } from "react-router-dom";
-
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { WishListContext } from "../contexts/WishListContext";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -40,12 +41,26 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function WishListCard({ product: { _id, image, name, description, price, rating }}) {
+function WishListCard({ product }) {
+ const { _id, image, name, description, price, rating } = product;
+  const { wishList, setWishList } = useContext(WishListContext);
+  const navigate = useNavigate();
   const { classes } = useStyles();
+  const id = _id;
+
+  const handleRedirect = () => {
+    navigate(`/products/${id}`);
+  };
+
+  const handleRemoveItem = () => {
+    const newWishList = wishList.filter((item) => item._id !== id);
+    setWishList(newWishList);
+  };
+
   return (
     <Card
       withBorder
-      radius="md"
+      radius="sm"
       p="md"
       className={classes.card}
       sx={{
@@ -56,30 +71,54 @@ function WishListCard({ product: { _id, image, name, description, price, rating 
         },
       }}
     >
-    
-        <Card.Section>
-          <Image src={image[0]} alt={name} height={220} />
-        </Card.Section>
+      <Card.Section sx={{ position: "relative" }}>
+        <img
+          src={image[0]}
+          style={{ width: "100%", objectFit: "cover" }}
+          alt={name}
+          height={220}
+        />
+        <Tooltip label="Remove from wishlist" position="left">
+          <CloseButton
+            size={"xl"}
+            sx={{ position: "absolute", top: "0", right: "0", zIndex: "10" }}
+            onClick={handleRemoveItem}
+          />
+        </Tooltip>
+      </Card.Section>
 
-        <Card.Section className={classes.section} mt="md">
-          <Group position="apart">
-            <Text fz="lg" fw={500}>
-              {name}
-            </Text>
-            <Badge size="sm">{rating}⭐</Badge>
-          </Group>
-          <Text fz="sm" mt="xs" sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
-            {description}
+      <Card.Section className={classes.section} mt="md">
+        <Group position="apart">
+          <Text fz="lg" fw={500}>
+            {name}
           </Text>
-        </Card.Section>
+          <Badge size="sm">{rating}⭐</Badge>
+        </Group>
+        <Text
+          fz="sm"
+          mt="xs"
+          sx={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {description}
+        </Text>
+      </Card.Section>
 
-        <Card.Section className={classes.section} mt="md">
-          <Text fz="24px" fw={500}>
-            ₹{price}
-          </Text>
-        </Card.Section>
+      <Card.Section className={classes.section} mt="md">
+        <Text fz="18px" fw={500}>
+          ₹{price}
+        </Text>
+      </Card.Section>
       <Group mt="xs">
-        <Button radius="md" variant="outline" style={{ flex: 1 }}>
+        <Button
+          radius="md"
+          variant="outline"
+          style={{ flex: 1 }}
+          onClick={handleRedirect}
+        >
           View Product
         </Button>
       </Group>

@@ -6,11 +6,10 @@ import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../axiosInstance.js";
 import { useState ,useContext} from 'react';
 import { CartContext } from '../contexts/CartContext';
-import ErrorAlert from '../components/ErrorAlert';
 
 function ProductScreen() {
 
-  const {handleAddToCart, existItem, cart} = useContext(CartContext);
+  const {handleAddToCart} = useContext(CartContext);
 
   const [size, setSize] = useState("6");
   const { id: productId } = useParams();

@@ -3,8 +3,11 @@ import ProductCard from "../components/ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "@mantine/core";
 import { axiosInstance } from "../axiosInstance";
+import { useContext } from 'react';
+import { WishListContext } from '../contexts/WishListContext';
 
 function AllProductsScreen() {
+  const { wishList, setWishList } = useContext(WishListContext);
   const {
     isLoading,
     isError,
@@ -12,6 +15,10 @@ function AllProductsScreen() {
   } = useQuery(["products"], () =>
     axiosInstance.get("/products").then((res) => res.data)
   );
+  const handleWishList = (product) => {
+    setWishList([...wishList, product]);
+  };
+
 
   return (
     <>
@@ -19,9 +26,11 @@ function AllProductsScreen() {
       <div
         style={{
           margin: "0 100px",
-          display: "flex",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gridGap: "20px",
+          paddingLeft:'50px'
+
         }}
       >
         {isError && <div>Something went wrong ...</div>}
@@ -41,6 +50,7 @@ function AllProductsScreen() {
             rating={product.rating}
             id={product._id}
             product={product}
+            handleWishList={handleWishList}
           />
         ))}
       </div>

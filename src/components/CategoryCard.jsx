@@ -1,12 +1,17 @@
 import "./CategoryCard.css";
 
-function CategoryCard({ title, image }) {
+
+
+function CategoryCard({title, image, backgroundStyle }) {
   return (
     <>
-      <div className='category-card'>
-        <figure>
-          <img className='card-img' src="/images/category-women.png" alt="" />
+      <div className="category-card">
+        <figure style={backgroundStyle}>
+          <img className="card-img" src={image} alt="" />
         </figure>
+        <div className="card-content">
+          <h3>{title}</h3>
+        </div>
       </div>
     </>
   );

@@ -8,7 +8,6 @@ import {
   Drawer,
   ScrollArea,
   rem,
-  Avatar,
   Badge,
   Tooltip,
 } from "@mantine/core";
@@ -17,8 +16,7 @@ import { Link } from "react-router-dom";
 import { IconHeart, IconShoppingCart } from "@tabler/icons-react";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../contexts/CartContext";
-import ProfileMenu from './ProfileMenu';
-
+import ProfileMenu from "./ProfileMenu";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -60,8 +58,11 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function MainHeader({ handleLoginOpen, handleRegisterOpen, isLoginOpen }) {
-  
+export default function MainHeader({
+  handleLoginOpen,
+  handleRegisterOpen,
+  isLoginOpen,
+}) {
   const [userInfo, setUserInfo] = useState("");
   const userName = userInfo ? userInfo.data.name : "";
   useEffect(() => {
@@ -79,7 +80,12 @@ export default function MainHeader({ handleLoginOpen, handleRegisterOpen, isLogi
         <Group position="apart" sx={{ height: "100%" }}>
           <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
             <h1
-              style={{ margin: "0", fontFamily: "Montserrat", fontSize: "24px",fontWeight:'normal' }}
+              style={{
+                margin: "0",
+                fontFamily: "Montserrat",
+                fontSize: "24px",
+                fontWeight: "normal",
+              }}
             >
               Sole Haven
             </h1>
@@ -93,8 +99,12 @@ export default function MainHeader({ handleLoginOpen, handleRegisterOpen, isLogi
             <Link to={"/"} className={classes.link}>
               Home
             </Link>
-            <Link className={classes.link}>Men</Link>
-            <Link className={classes.link}>Women</Link>
+            <Link to={"/products/men"} className={classes.link}>
+              Men
+            </Link>
+            <Link to={"/products/women"} className={classes.link}>
+              Women
+            </Link>
           </Group>
 
           <Group className={classes.hiddenMobile}>
@@ -102,7 +112,7 @@ export default function MainHeader({ handleLoginOpen, handleRegisterOpen, isLogi
               <Tooltip label="Wishlist" position="left">
                 <IconHeart
                   size="1.8rem"
-                  color="red"
+                  color="blue"
                   className={classes.like}
                   stroke={1.2}
                 />
@@ -116,7 +126,7 @@ export default function MainHeader({ handleLoginOpen, handleRegisterOpen, isLogi
             </Link>
 
             {userInfo ? (
-              <ProfileMenu userName={userName}/>
+              <ProfileMenu userName={userName} />
             ) : (
               <>
                 <Button variant="default" onClick={handleLoginOpen}>

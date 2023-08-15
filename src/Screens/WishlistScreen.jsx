@@ -1,18 +1,54 @@
-import { useContext } from 'react';
-import { WishListContext } from '../contexts/WishListContext';
-import WishListCard from '../components/WishListCard';
+import { useContext } from "react";
+import { WishListContext } from "../contexts/WishListContext";
+import WishListCard from "../components/WishListCard";
+import { Button } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 
 function WishListScreen() {
-    const {wishList,setWishList} = useContext(WishListContext);
+  const navigate = useNavigate();
+  const { wishList } = useContext(WishListContext);
+  const handleRedirect = () => {
+    navigate("/");
+  };
+  if (wishList.length === 0)
     return (
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr 1fr', gap:'20px',margin:'0 100px'}}>
-            {wishList.map((product) => (
-                <WishListCard key={product._id} product={product} />
-            ))}
-                
-
-        </div>
-    )
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <h1
+          style={{
+            textAlign: "center",
+            marginTop: "100px",
+            fontFamily: "Montserrat",
+            fontWeight: "400",
+          }}
+        >
+          Your WishList is Empty
+        </h1>
+        <Button variant="outline" maw={"200px"} onClick={handleRedirect}>
+          Return to Homepage
+        </Button>
+      </div>
+    );
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr 1fr 1fr",
+        gap: "20px",
+        margin: "0 100px",
+        paddingLeft:'20px'
+      }}
+    >
+      {wishList.map((product) => (
+        <WishListCard key={product._id} product={product} />
+      ))}
+    </div>
+  );
 }
 
 export default WishListScreen;

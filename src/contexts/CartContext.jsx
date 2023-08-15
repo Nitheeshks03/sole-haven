@@ -11,7 +11,7 @@ const CartProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
-  const [existItem, setExistItem] = useState(false);
+
 
   const handleAddToCart = (product, size, qty) => {
     const newItem = {
@@ -20,7 +20,7 @@ const CartProvider = ({ children }) => {
       size,
     };
     if (cart?.find((item) => item.product._id === product._id)) {
-      setExistItem(true);
+      console.log("item exist");
     } else {
       setCart((items) => [...items, newItem]);
     }
@@ -35,7 +35,7 @@ const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, setCart, handleAddToCart, existItem, subTotal, cartQty }}
+      value={{ cart, setCart, handleAddToCart, subTotal, cartQty }}
     >
       {children}
     </CartContext.Provider>

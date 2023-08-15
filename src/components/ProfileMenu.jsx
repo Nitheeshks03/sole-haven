@@ -14,6 +14,8 @@ function ProfileMenu({ userName }) {
     onSuccess: () => {
       localStorage.removeItem("userInfo");
       localStorage.removeItem("cart");
+      localStorage.removeItem("shippingAddress");
+      localStorage.removeItem("wishList");
       window.location.reload();
     },
     onError: (error) => {
@@ -36,7 +38,7 @@ function ProfileMenu({ userName }) {
           leftSection={avatar}
           sx={{ cursor: "pointer" }}
         >
-          <Text size="sm">{userName}</Text>
+          <Text size="sm" sx={{textTransform:'capitalize'}}>{userName}</Text>
         </Badge>
       </Menu.Target>
       <Menu.Dropdown>

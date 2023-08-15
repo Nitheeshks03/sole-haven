@@ -6,11 +6,14 @@ import {
   Text,
   ScrollArea,
   NumberInput,
+  Button,
 } from "@mantine/core";
-import { useContext} from "react";
+import { useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
+import { useNavigate } from "react-router-dom";
 
 export function Cart() {
+  const navigate = useNavigate();
   const { cart, setCart } = useContext(CartContext);
 
   const handleQuantity = (itemIndex, newQty) => {
@@ -18,6 +21,31 @@ export function Cart() {
     updatedCart[itemIndex].qty = newQty;
     setCart(updatedCart);
   };
+
+  const handleDeleteItem = (deleteItem) => {
+    const updatedCart = cart.filter(
+      (cartItem) => cartItem.product._id !== deleteItem.product._id
+    );
+    setCart(updatedCart);
+  };
+
+  if (cart.length === 0)
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <h2 style={{ fontFamily: "Montserrat", fontWeight: "400" }}>
+          Cart is empty
+        </h2>
+        <Button variant="outline" onClick={() => navigate("/")}>
+          Continue Shopping
+        </Button>
+      </div>
+    );
 
   const rows = cart?.map((item, index) => (
     <tr key={item.product.name}>
@@ -44,7 +72,12 @@ export function Cart() {
       </td>
       <td>₹{item.product.price}</td>
       <td>
-        <Badge color="blue" variant="light" sx={{ cursor: "pointer" }}>
+        <Badge
+          color="red"
+          variant="light"
+          sx={{ cursor: "pointer" }}
+          onClick={()=>handleDeleteItem(item)}
+        >
           delete
         </Badge>
       </td>
@@ -59,7 +92,7 @@ export function Cart() {
             <th>Product</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th>Edit</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

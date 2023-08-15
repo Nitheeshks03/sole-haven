@@ -8,6 +8,14 @@
     grid-template-columns:25% 25% 25% 25%;
     grid-template-rows:25% 25% 25% 25%;
   }
+  .category-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    left: 100px;
+    
+  }
   
   .shoe-name {
     grid-column: 4/4;

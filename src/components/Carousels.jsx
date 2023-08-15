@@ -2,9 +2,9 @@
 import { Carousel } from "@mantine/carousel";
 
 const images = [
-  "images/carousel-1.jpg",
-  "images/carousel-2.jpg",
-  "images/carousel-3.jpg",
+  "/images/carousel-1.jpg",
+  "/images/carousel-2.jpg",
+  "/images/carousel-3.jpg",
 ];
 
 export default function Carousels() {
@@ -21,7 +21,7 @@ export default function Carousels() {
       mx="auto"
       withIndicators
       height={400}
-      interval={3000} // Set the interval to control slide transition duration
+      interval={3000} 
     >
       {slides}
     </Carousel>

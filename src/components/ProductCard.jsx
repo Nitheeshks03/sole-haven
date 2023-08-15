@@ -1,7 +1,6 @@
 import { IconHeart } from "@tabler/icons-react";
 import {
   Card,
-  Image,
   Text,
   Group,
   Badge,
@@ -10,8 +9,7 @@ import {
   rem,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
-import { useContext } from 'react';
-import { WishListContext } from '../contexts/WishListContext';
+
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -29,16 +27,6 @@ const useStyles = createStyles((theme) => ({
     paddingRight: theme.spacing.md,
     paddingBottom: theme.spacing.md,
   },
-
-  like: {
-    color: theme.colors.red[6],
-  },
-
-  label: {
-    textTransform: "uppercase",
-    fontSize: theme.fontSizes.xs,
-    fontWeight: 700,
-  },
 }));
 
 function ProductCard({
@@ -49,21 +37,16 @@ function ProductCard({
   price,
   id,
   product,
+  handleWishList
 }) {
-  const {wishList,setWishList} = useContext(WishListContext);
+ 
   const { classes } = useStyles();
-
-  const handleWishList = () => {
-    setWishList([...wishList, product]);
-  };
-
-
 
 
   return (
     <Card
       withBorder
-      radius="md"
+      radius="sm"
       p="md"
       className={classes.card}
       sx={{
@@ -79,7 +62,7 @@ function ProductCard({
         style={{ textDecoration: "none", color: "black" }}
       >
         <Card.Section>
-          <Image src={image} alt={title} height={220} />
+          <img style={{width:'100%',objectFit:'cover'}} src={image} alt={title} height={220} />
         </Card.Section>
 
         <Card.Section className={classes.section} mt="md">
@@ -89,20 +72,33 @@ function ProductCard({
             </Text>
             <Badge size="sm">{rating}⭐</Badge>
           </Group>
-          <Text fz="sm" mt="xs">
+          <Text
+            fz="sm"
+            mt="xs"
+            sx={{
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
             {description}
           </Text>
         </Card.Section>
 
         <Card.Section className={classes.section} mt="md">
-          <Text fz="24px" fw={500}>
+          <Text fz="20px" fw={500}>
             ₹{price}
           </Text>
         </Card.Section>
       </Link>
 
       <Group mt="xs">
-        <Button radius="md" variant="outline" style={{ flex: 1 }} onClick={handleWishList}>
+        <Button
+          radius="md"
+          variant="outline"
+          style={{ flex: 1 }}
+          onClick={()=>handleWishList(product)}
+        >
           Add to Wishlist
           <IconHeart
             size="1.1rem"

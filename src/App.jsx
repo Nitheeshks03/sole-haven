@@ -8,8 +8,10 @@ import Footer from "./components/Footer";
 import LoginScreen from "./screens/LoginScreen";
 import { CartProvider } from "./contexts/CartContext";
 import AllProductScreenWrapper from "./screens/AllProductScreenWrapper";
-import ProductScreenWrapper from './screens/ProductScreenWrapper';
-import WishListScreenWrapper from './screens/WishListScreenWrapper';
+import ProductScreenWrapper from "./screens/ProductScreenWrapper";
+import WishListScreenWrapper from "./screens/WishListScreenWrapper";
+import MenProductScreenWrapper from "./screens/MenProductScreenWrapper";
+import WomenProductScreenWrapper from "./screens/WomenProductScreenWrapper";
 
 const links = [{ label: "Home" }, { label: "About" }, { label: "Services" }];
 
@@ -43,6 +45,12 @@ function App() {
           <Route path="/wishlist" element={<WishListScreenWrapper />} />
           <Route path="/products/:id" element={<ProductScreenWrapper />} />
           <Route path="/products" element={<AllProductScreenWrapper />} />
+          <Route path="/products/men" element={<MenProductScreenWrapper />} />
+          <Route
+            path="/products/women"
+            element={<WomenProductScreenWrapper />}
+          />
+
           <Route path="/cart" element={<Steps />} />
         </Routes>
       </CartProvider>
