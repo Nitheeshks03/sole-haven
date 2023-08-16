@@ -12,6 +12,8 @@ import ProductScreenWrapper from "./screens/ProductScreenWrapper";
 import WishListScreenWrapper from "./screens/WishListScreenWrapper";
 import MenProductScreenWrapper from "./screens/MenProductScreenWrapper";
 import WomenProductScreenWrapper from "./screens/WomenProductScreenWrapper";
+import ProductListScreen from "./screens/admin/ProductListScreen";
+import UsersListScreen from "./screens/admin/UsersListScreen";
 
 const links = [{ label: "Home" }, { label: "About" }, { label: "Services" }];
 
@@ -46,6 +48,8 @@ function App() {
           <Route path="/products/:id" element={<ProductScreenWrapper />} />
           <Route path="/products" element={<AllProductScreenWrapper />} />
           <Route path="/products/men" element={<MenProductScreenWrapper />} />
+          <Route path='/productslist' element={<ProductListScreen />} />
+          <Route path='/userslist' element={<UsersListScreen />} />
           <Route
             path="/products/women"
             element={<WomenProductScreenWrapper />}

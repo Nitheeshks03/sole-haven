@@ -11,8 +11,10 @@ import {
   Group,
   Button,
 } from "@mantine/core";
+import { IconCheck } from "@tabler/icons-react";
 import { axiosInstance } from "../axiosInstance.js";
 import { useMutation } from "@tanstack/react-query";
+import { notifications } from "@mantine/notifications";
 const MODAL_STYLES = {
   position: "fixed",
   height: "500px",
@@ -22,7 +24,7 @@ const MODAL_STYLES = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   padding: "20px",
-  zIndex: 1000,
+  zIndex: 1001,
   display: "flex",
   alignItems: "center",
   backgroundColor: "#fff",
@@ -34,7 +36,7 @@ const OVERLAY_STYLES = {
   right: 0,
   bottom: 0,
   backgroundColor: "rgba(42, 102, 152, 0.7)",
-  zIndex: 1000,
+  zIndex: 10,
 };
 
 function LoginScreen({ handleLoginClose }) {
@@ -90,9 +92,25 @@ function LoginModal({
       axiosInstance.post("/users/login", loginData, {
         withCredentials: true,
       }),
-    onSuccess: (data) => {
+    onError: (error) => {
+      notifications.show({
+        title: "Login Failed",
+        message: error.response.data.message,
+        color: "red",
+        autoClose: 3000,
+        icon: <IconCheck />,
+        sx: { zIndex: 1001 },
+      });
+    },
+    onSuccess: async (data) => {
       localStorage.setItem("userInfo", JSON.stringify(data));
       handleLoginClose();
+      notifications.show({
+        title: "Login Successful",
+        color: "green",
+        autoClose: 3000,
+        icon: <IconCheck />,
+      });
     },
   });
   const handleLogin = () => {
@@ -153,12 +171,7 @@ function LoginModal({
             Forgot password?
           </Anchor>
         </Group>
-        <Button
-          fullWidth
-          mt="xl"
-          type="submit"
-          onClick={handleLogin}
-        >
+        <Button fullWidth mt="xl" type="submit" onClick={handleLogin}>
           Sign in
         </Button>
       </Paper>

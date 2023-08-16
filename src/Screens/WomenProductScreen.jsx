@@ -43,6 +43,7 @@ function WomenProductScreen() {
             image={product.image[0]}
             title={product.title}
             description={product.description}
+            id={product._id}
           />
         ) : null
       )}

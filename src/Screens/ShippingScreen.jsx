@@ -6,7 +6,7 @@ import {
   Title,
   Button,
 } from "@mantine/core";
-import { Navigate } from 'react-router-dom';
+
 
 export default function ShippingScreen({
   shippingAddress,

@@ -12,6 +12,7 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
 import { Link } from "react-router-dom";
 import { IconHeart, IconShoppingCart } from "@tabler/icons-react";
 import { useContext, useEffect, useState } from "react";
@@ -126,7 +127,7 @@ export default function MainHeader({
             </Link>
 
             {userInfo ? (
-              <ProfileMenu userName={userName} />
+              <ProfileMenu setUserInfo={setUserInfo} userInfo={userInfo} />
             ) : (
               <>
                 <Button variant="default" onClick={handleLoginOpen}>

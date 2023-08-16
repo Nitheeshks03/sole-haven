@@ -19,7 +19,7 @@ function PaymentScreen({ shippingAddress}) {
         <div className="shipping">
           <h2>Shipping</h2>
           <Paper shadow="xs" p="md" radius="xs">
-            <Text>
+            <Text className='address-details'>
               <p>Name: {shippingAddress.name}</p>
 
               <p>Phone: {shippingAddress.phone}</p>

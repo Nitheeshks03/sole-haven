@@ -31,7 +31,7 @@ function HomeScreen() {
   return (
     <>
       <div className="home-container">
-        <h1 className="shoe-name">NIKE AIR FORCE</h1>
+        <h1 className="shoe-name">JUST DO <br/> IT</h1>
         <div className="shoe-container">
           <img src="images/home-img.png" alt="Shoe" className="shoe-image" />
         </div>
@@ -53,20 +53,18 @@ function HomeScreen() {
         </div>
 
         <div className="description-container">
-          <p style={{ paddingTop: "60px" }}>
+          <p >
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam id
             saepe temporibus alias ipsa ullam inventore aliquam optio, facilis
             modi placeat explicabo tempore laborum eius. Quia commodi unde natus
             expedita?
           </p>
-          <Divider />
-          <Link to={"/products"}>
-            {" "}
-            <Button variant="gradient"> See all Products</Button>
+          <Link to={"/products"} className='btn-allproducts' >
+            <Button variant="gradient" > See all Products</Button>
           </Link>
         </div>
       </div>
-      <Divider my="sm" sx={{ margin: "0 100px" }} />
+      <Divider my="sm" />
     </>
   );
 }
