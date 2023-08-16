@@ -7,15 +7,17 @@ import {
   Menu,
   ScrollArea,
   Button,
+  Loader,
 } from "@mantine/core";
 import { IconPencil, IconTrash, IconCheck } from "@tabler/icons-react";
 import { axiosInstance } from "../../axiosInstance";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { notifications } from "@mantine/notifications";
+import { Link } from 'react-router-dom';
 
 export function ProductListScreen() {
   const queryClient = useQueryClient();
-  const { data: products, isLoading } = useQuery(["products"], () =>
+  const { data: products, isLoading : productsLoading } = useQuery(["products"], () =>
     axiosInstance.get("/products").then((res) => res.data)
   );
 
@@ -38,13 +40,37 @@ export function ProductListScreen() {
       console.log(error);
     },
   });
+  const deleteProductMutation = useMutation({
+    mutationKey: ["deleteProduct"],
+    mutationFn: (id) =>
+      axiosInstance
+        .delete(`/products/${id}`)
+        .then((res) => res.data),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["products"]);
+      notifications.show({
+        title: "Product Deleted",
+        color: "red",
+        autoClose: 1500,
+        icon: <IconCheck />,
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
 
   const handleCreateProduct = () => {
     createProductMutation.mutate();
   };
 
+  const handleDeleteProduct = (id) => {
+    deleteProductMutation.mutate(id);
+  };
+
   const rows = products?.map((item) => (
-    <tr key={item.name}>
+    <tr key={item._id}>
       <td>
         <Group spacing="sm">
           <Avatar size={40} src={item.image[0]} radius={40} />
@@ -70,7 +96,9 @@ export function ProductListScreen() {
       <td>
         <Group spacing={0} position="right">
           <ActionIcon>
+            <Link to={`/admin/products/new/${item._id}`}>
             <IconPencil size="1rem" stroke={1.5} />
+            </Link>
           </ActionIcon>
           <Menu
             transitionProps={{ transition: "pop" }}
@@ -79,8 +107,8 @@ export function ProductListScreen() {
             withinPortal
           >
             <Menu.Target>
-              <ActionIcon>
-                <IconTrash size="1rem" stroke={1.5} color="red" />
+              <ActionIcon >
+                <IconTrash size="1rem" stroke={1.5} color="red" onClick={()=>handleDeleteProduct(item._id)} />
               </ActionIcon>
             </Menu.Target>
           </Menu>
@@ -89,9 +117,12 @@ export function ProductListScreen() {
     </tr>
   ));
 
+
+  
   return (
     <>
-      <Button variant="outline" color="blue" onClick={handleCreateProduct}>
+      {productsLoading && <Loader variant='bars' sx={{position:'absolute',top:'50%',left:'50%',translate:'-50%'}}/>}
+      <Button variant="outline" color="blue" onClick={()=>handleCreateProduct()}>
         Create Product
       </Button>
       <ScrollArea>

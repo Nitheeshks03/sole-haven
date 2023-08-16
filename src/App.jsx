@@ -47,11 +47,11 @@ function App() {
           <Route path="/" element={<HomeScreen />} />
           <Route path="/wishlist" element={<WishListScreenWrapper />} />
           <Route path="/products/:id" element={<ProductScreenWrapper />} />
-          {/* <Route path="/products" element={<AllProductScreenWrapper />} /> */}
+          <Route path="/products" element={<AllProductScreenWrapper />} />
           <Route path="/products/men" element={<MenProductScreenWrapper />} />
           <Route path='/admin/productslist' element={<ProductListScreen />} />
           <Route path='/admin/userslist' element={<UsersListScreen />} />
-          <Route path='/admin/products/new' element={<CreateProductScreen />} />
+          <Route path='/admin/products/new/:id' element={<CreateProductScreen />} />
           <Route
             path="/products/women"
             element={<WomenProductScreenWrapper />}
