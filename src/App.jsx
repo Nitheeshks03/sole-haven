@@ -14,6 +14,7 @@ import MenProductScreenWrapper from "./screens/MenProductScreenWrapper";
 import WomenProductScreenWrapper from "./screens/WomenProductScreenWrapper";
 import ProductListScreen from "./screens/admin/ProductListScreen";
 import UsersListScreen from "./screens/admin/UsersListScreen";
+import CreateProductScreen from './screens/admin/CreateProductScreen';
 
 const links = [{ label: "Home" }, { label: "About" }, { label: "Services" }];
 
@@ -46,10 +47,11 @@ function App() {
           <Route path="/" element={<HomeScreen />} />
           <Route path="/wishlist" element={<WishListScreenWrapper />} />
           <Route path="/products/:id" element={<ProductScreenWrapper />} />
-          <Route path="/products" element={<AllProductScreenWrapper />} />
+          {/* <Route path="/products" element={<AllProductScreenWrapper />} /> */}
           <Route path="/products/men" element={<MenProductScreenWrapper />} />
-          <Route path='/productslist' element={<ProductListScreen />} />
-          <Route path='/userslist' element={<UsersListScreen />} />
+          <Route path='/admin/productslist' element={<ProductListScreen />} />
+          <Route path='/admin/userslist' element={<UsersListScreen />} />
+          <Route path='/admin/products/new' element={<CreateProductScreen />} />
           <Route
             path="/products/women"
             element={<WomenProductScreenWrapper />}
@@ -60,7 +62,7 @@ function App() {
       </CartProvider>
       {isLoginOpen && <LoginScreen handleLoginClose={handleLoginClose} />}
       {isRegisterOpen && (
-        <RegisterScreen handleRegisterClose={handleRegisterClose} />
+        <RegisterScreen handleRegisterClose={handleRegisterClose} handleLoginOpen={handleLoginOpen} />
       )}
       <Footer links={links} />
     </>

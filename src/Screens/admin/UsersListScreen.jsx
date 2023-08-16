@@ -7,22 +7,38 @@ import {
   Menu,
   ScrollArea,
 } from "@mantine/core";
-import { IconPencil, IconTrash } from "@tabler/icons-react";
+import { IconPencil, IconTrash, IconCheck } from "@tabler/icons-react";
 import { axiosInstance } from "../../axiosInstance";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { notifications } from "@mantine/notifications";
 
 export function UsersListScreen() {
-  const {
-    data: users,
-    isLoading,
-    isError,
-    isSuccess,
-  } = useQuery(["users"], () =>
-    axiosInstance.get("/users").then((res) => res.data)
+  const queryClient = useQueryClient();
+  const { data: users, isLoading } = useQuery(["users"], () =>
+    axiosInstance
+      .get("/users")
+      .then((res) => res.data)
   );
 
+  const deleteUserMutation = useMutation({
+    mutationKey: "deleteUser",
+    mutationFn: (id) => axiosInstance.delete(`/users/${id}`),
+    onSuccess: () => {
+      notifications.show({
+        title: "User Deleted",
+        color: "green",
+        autoClose: 1500,
+        icon: <IconCheck />,
+      }),
+        queryClient.invalidateQueries(["users"]);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   const handleDeleteUser = (id) => {
-    axiosInstance.delete(`/users/${id}`);
+    deleteUserMutation.mutate(id);
   };
 
   const rows = users?.map((item) => (
@@ -63,7 +79,7 @@ export function UsersListScreen() {
                   size="1rem"
                   stroke={1.5}
                   color="red"
-                  onClick={handleDeleteUser(item._id)}
+                  onClick={() => handleDeleteUser(item._id)}
                 />
               </ActionIcon>
             </Menu.Target>

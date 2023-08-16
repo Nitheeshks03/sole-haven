@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <MantineProvider>
         <QueryClientProvider client={queryClient}>
-        <Notifications />
+        <Notifications position='top-right'/>
         <App />
         <ReactQueryDevtools  />
         </QueryClientProvider>

@@ -7,8 +7,10 @@ import {
   Container,
   Button,
 } from "@mantine/core";
-import ErrorAlert from "../components/ErrorAlert";
-import Success from "../components/Success";
+import { useMutation } from "@tanstack/react-query";
+import { notifications } from "@mantine/notifications";
+import { IconCheck } from "@tabler/icons-react";
+import { axiosInstance } from "../axiosInstance.js";
 
 const MODAL_STYLES = {
   position: "fixed",
@@ -34,56 +36,58 @@ const OVERLAY_STYLES = {
   zIndex: 1000,
 };
 
-export default function RegisterScreen({ handleRegisterClose }) {
+export default function RegisterScreen({
+  handleRegisterClose,
+  handleLoginOpen,
+}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [registerSuccess, setRegisterSuccess] = useState(false);
-  const [errorAlert, setErrorAlert] = useState(false);
 
-  const handleRegisterSuccess = () => {
-    setRegisterSuccess(true);
+  const registerData = {
+    name,
+    email,
+    password,
+    confirmPassword,
   };
 
-  const handleErrorAlert = () => {
-    setErrorAlert(true);
-  };
-
-  const handleRegister = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          confirmPassword,
-        }),
+  const registerMutation = useMutation({
+    mutationKey: "register",
+    mutationFn: () =>
+      axiosInstance.post("/users", registerData, {
+        withCredentials: true,
+      }),
+    onError: (error) => {
+      notifications.show({
+        title: "Registration Failed",
+        message: error.response.data.message,
+        color: "red",
+        autoClose: 3000,
+        icon: <IconCheck />,
+        sx: { zIndex: 1001 },
       });
+    },
+    onSuccess: () => {
+      handleRegisterClose();
+      notifications.show({
+        withCloseButton: true,
+        title: "Registration Successful",
+        color: "green",
+        autoClose: 2000,
+        onClose: () => handleLoginOpen(),
+        icon: <IconCheck />,
+      });
+      
+    },
+  });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Registration failed:", errorData);
-        handleErrorAlert();
-      }
-
-      const data = await response.json();
-      console.log("Registration successful:", data);
-      handleRegisterSuccess();
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
+  const handleRegister = () => {
+    registerMutation.mutate(registerData);
   };
 
-  
   return (
     <>
-      {errorAlert && <ErrorAlert message="Registration failed" />}
-      {registerSuccess && <Success message="Registration successful" />}
       <div style={OVERLAY_STYLES} />
       <div style={MODAL_STYLES}>
         <button

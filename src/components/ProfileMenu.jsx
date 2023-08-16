@@ -3,7 +3,7 @@ import { IconArrowsLeftRight, IconCheck } from "@tabler/icons-react";
 import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "../axiosInstance";
 import { notifications } from "@mantine/notifications";
-import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const avatar = (
@@ -11,6 +11,7 @@ const avatar = (
 );
 
 function ProfileMenu({ setUserInfo, userInfo }) {
+  const navigate = useNavigate();
   const userName = userInfo.data.name;
   const logoutMutation = useMutation({
     mutationKey: "logout",
@@ -25,7 +26,7 @@ function ProfileMenu({ setUserInfo, userInfo }) {
       notifications.show({
         title: "Logout Successful",
         color: "green",
-        autoClose: 5000,
+        autoClose: 2000,
         icon: <IconCheck />,
       });
     },
@@ -36,6 +37,7 @@ function ProfileMenu({ setUserInfo, userInfo }) {
 
   const handleLogout = () => {
     logoutMutation.mutate();
+    navigate('/');
   };
 
   return (
@@ -60,10 +62,10 @@ function ProfileMenu({ setUserInfo, userInfo }) {
       <Menu.Item>Account</Menu.Item>
         {userInfo.data.isAdmin ? (
           <>
-            <Link to={'/productslist'} style={{textDecoration:'none'}}>
+            <Link to={'/admin/productslist'} style={{textDecoration:'none'}}>
             <Menu.Item>Products</Menu.Item>
             </Link>
-            <Link to={'/userslist'} style={{textDecoration:'none'}}>
+            <Link to={'/admin/userslist'} style={{textDecoration:'none'}}>
             <Menu.Item>Userlist</Menu.Item>
             </Link>
             <Menu.Item>Orderslist</Menu.Item>
