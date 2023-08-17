@@ -9,7 +9,8 @@ import {
   rem,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
-
+import { useContext } from "react";
+import { WishListContext } from "../contexts/WishListContext";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -37,11 +38,10 @@ function ProductCard({
   price,
   id,
   product,
-  handleWishList
 }) {
- 
-  const { classes } = useStyles();
+  const { handleWishList } = useContext(WishListContext);
 
+  const { classes } = useStyles();
 
   return (
     <Card
@@ -62,7 +62,12 @@ function ProductCard({
         style={{ textDecoration: "none", color: "black" }}
       >
         <Card.Section>
-          <img style={{width:'100%',objectFit:'cover'}} src={image} alt={title} height={220} />
+          <img
+            style={{ width: "100%", objectFit: "cover" }}
+            src={image}
+            alt={title}
+            height={220}
+          />
         </Card.Section>
 
         <Card.Section className={classes.section} mt="md">

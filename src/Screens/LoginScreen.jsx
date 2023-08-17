@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   TextInput,
   PasswordInput,
@@ -15,6 +15,7 @@ import { IconCheck } from "@tabler/icons-react";
 import { axiosInstance } from "../axiosInstance.js";
 import { useMutation } from "@tanstack/react-query";
 import { notifications } from "@mantine/notifications";
+import { UserContext } from "../contexts/UserContext.jsx";
 const MODAL_STYLES = {
   position: "fixed",
   height: "500px",
@@ -39,35 +40,41 @@ const OVERLAY_STYLES = {
   zIndex: 10,
 };
 
-function LoginScreen({ handleLoginClose }) {
+function LoginScreen() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
+  const { isLoginOpen, handleLoginClose } = useContext(UserContext);
+
   return (
     <>
-      <div style={OVERLAY_STYLES} />
-      <div style={MODAL_STYLES}>
-        <button
-          style={{
-            position: "absolute",
-            right: "0",
-            top: "0",
-            fontSize: "20px",
-            cursor: "pointer",
-          }}
-          onClick={handleLoginClose}
-        >
-          &times;
-        </button>
+      {isLoginOpen && (
+        <>
+          <div style={OVERLAY_STYLES} />
+          <div style={MODAL_STYLES}>
+            <button
+              style={{
+                position: "absolute",
+                right: "0",
+                top: "0",
+                fontSize: "20px",
+                cursor: "pointer",
+              }}
+              onClick={handleLoginClose}
+            >
+              &times;
+            </button>
 
-        <LoginModal
-          email={email}
-          setEmail={setEmail}
-          password={password}
-          setPassword={setPassword}
-          handleLoginClose={handleLoginClose}
-        />
-      </div>
+            <LoginModal
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+              handleLoginClose={handleLoginClose}
+            />
+          </div>
+        </>
+      )}
     </>
   );
 }

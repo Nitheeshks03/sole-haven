@@ -1,11 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
-import RegisterScreen from "./screens/RegisterScreen";
 import MainHeader from "./components/MainHeader";
 import Steps from "./components/Steps";
-import { useState } from "react";
 import Footer from "./components/Footer";
-import LoginScreen from "./screens/LoginScreen";
 import { CartProvider } from "./contexts/CartContext";
 import AllProductScreenWrapper from "./screens/AllProductScreenWrapper";
 import ProductScreenWrapper from "./screens/ProductScreenWrapper";
@@ -15,43 +12,26 @@ import WomenProductScreenWrapper from "./screens/WomenProductScreenWrapper";
 import ProductListScreen from "./screens/admin/ProductListScreen";
 import UsersListScreen from "./screens/admin/UsersListScreen";
 import CreateProductScreen from './screens/admin/CreateProductScreen';
+import MainHeaderWrapper from './components/MainHeaderWrapper';
 
-const links = [{ label: "Home" }, { label: "About" }, { label: "Services" }];
 
 function App() {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-  function handleLoginOpen() {
-    setIsLoginOpen(true);
-  }
+ 
 
-  function handleLoginClose() {
-    setIsLoginOpen(false);
-  }
-  function handleRegisterOpen() {
-    setIsRegisterOpen(true);
-  }
-  function handleRegisterClose() {
-    setIsRegisterOpen(false);
-  }
 
   return (
     <>
       <CartProvider>
-        <MainHeader
-          handleLoginOpen={handleLoginOpen}
-          handleRegisterOpen={handleRegisterOpen}
-          isLoginOpen={isLoginOpen}
-        />
+        <MainHeaderWrapper />
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path="/wishlist" element={<WishListScreenWrapper />} />
           <Route path="/products/:id" element={<ProductScreenWrapper />} />
           <Route path="/products" element={<AllProductScreenWrapper />} />
           <Route path="/products/men" element={<MenProductScreenWrapper />} />
-          <Route path='/admin/productslist' element={<ProductListScreen />} />
           <Route path='/admin/userslist' element={<UsersListScreen />} />
-          <Route path='/admin/products/new/:id' element={<CreateProductScreen />} />
+          <Route path='/admin/productslist' element={<ProductListScreen />} />
+          <Route path='/admin/products/:id/edit' element={<CreateProductScreen />} />
           <Route
             path="/products/women"
             element={<WomenProductScreenWrapper />}
@@ -60,11 +40,7 @@ function App() {
           <Route path="/cart" element={<Steps />} />
         </Routes>
       </CartProvider>
-      {isLoginOpen && <LoginScreen handleLoginClose={handleLoginClose} />}
-      {isRegisterOpen && (
-        <RegisterScreen handleRegisterClose={handleRegisterClose} handleLoginOpen={handleLoginOpen} />
-      )}
-      <Footer links={links} />
+      <Footer  />
     </>
   );
 }

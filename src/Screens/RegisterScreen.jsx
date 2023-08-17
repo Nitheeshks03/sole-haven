@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
 import {
   TextInput,
   PasswordInput,
@@ -36,14 +37,14 @@ const OVERLAY_STYLES = {
   zIndex: 1000,
 };
 
-export default function RegisterScreen({
-  handleRegisterClose,
-  handleLoginOpen,
-}) {
+export default function RegisterScreen() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const { handleRegisterClose, isRegisterOpen, handleLoginOpen } =
+    useContext(UserContext);
 
   const registerData = {
     name,
@@ -78,7 +79,6 @@ export default function RegisterScreen({
         onClose: () => handleLoginOpen(),
         icon: <IconCheck />,
       });
-      
     },
   });
 
@@ -88,32 +88,36 @@ export default function RegisterScreen({
 
   return (
     <>
-      <div style={OVERLAY_STYLES} />
-      <div style={MODAL_STYLES}>
-        <button
-          style={{
-            position: "absolute",
-            right: "0",
-            top: "0",
-            fontSize: "20px",
-            cursor: "pointer",
-          }}
-          onClick={handleRegisterClose}
-        >
-          &times;
-        </button>
-        <RegisterModal
-          name={name}
-          email={email}
-          password={password}
-          confirmPassword={confirmPassword}
-          setName={setName}
-          setEmail={setEmail}
-          setPassword={setPassword}
-          setConfirmPassword={setConfirmPassword}
-          handleRegister={handleRegister}
-        />
-      </div>
+      {isRegisterOpen && (
+        <>
+          <div style={OVERLAY_STYLES} />
+          <div style={MODAL_STYLES}>
+            <button
+              style={{
+                position: "absolute",
+                right: "0",
+                top: "0",
+                fontSize: "20px",
+                cursor: "pointer",
+              }}
+              onClick={handleRegisterClose}
+            >
+              &times;
+            </button>
+            <RegisterModal
+              name={name}
+              email={email}
+              password={password}
+              confirmPassword={confirmPassword}
+              setName={setName}
+              setEmail={setEmail}
+              setPassword={setPassword}
+              setConfirmPassword={setConfirmPassword}
+              handleRegister={handleRegister}
+            />
+          </div>
+        </>
+      )}
     </>
   );
 }

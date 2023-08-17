@@ -80,7 +80,7 @@ function WishListCard({ product }) {
         />
         <Tooltip label="Remove from wishlist" position="left">
           <CloseButton
-            size={"xl"}
+            size={"lg"}
             sx={{ position: "absolute", top: "0", right: "0", zIndex: "10" }}
             onClick={handleRemoveItem}
           />

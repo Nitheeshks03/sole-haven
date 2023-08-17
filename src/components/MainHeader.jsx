@@ -12,12 +12,14 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { notifications } from "@mantine/notifications";
 import { Link } from "react-router-dom";
 import { IconHeart, IconShoppingCart } from "@tabler/icons-react";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../contexts/CartContext";
+import { UserContext } from "../contexts/UserContext";
 import ProfileMenu from "./ProfileMenu";
+import LoginScreen from '../screens/LoginScreen';
+import RegisterScreen from '../screens/RegisterScreen';
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -59,23 +61,25 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function MainHeader({
-  handleLoginOpen,
-  handleRegisterOpen,
-  isLoginOpen,
-}) {
+export default function MainHeader() {
   const [userInfo, setUserInfo] = useState("");
   const userName = userInfo ? userInfo.data.name : "";
+  const { handleLoginOpen, handleRegisterOpen, isLoginOpen,isRegisterOpen } =
+  useContext(UserContext);
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("userInfo"));
     setUserInfo(user);
   }, [isLoginOpen]);
+
+const { cartQty } = useContext(CartContext);
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes } = useStyles();
-  const { cartQty } = useContext(CartContext);
 
   return (
+    <>
+    {isLoginOpen && <LoginScreen />}
+    {isRegisterOpen && <RegisterScreen />}
     <Box pb={80} style={{ paddingRight: "100px", paddingLeft: "100px" }}>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: "100%" }}>
@@ -175,5 +179,6 @@ export default function MainHeader({
         </ScrollArea>
       </Drawer>
     </Box>
+    </>
   );
 }

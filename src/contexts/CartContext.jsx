@@ -1,3 +1,4 @@
+import { notifications } from "@mantine/notifications";
 import { createContext, useEffect, useState } from "react";
 
 const initialCart = localStorage.getItem("cart")
@@ -12,7 +13,6 @@ const CartProvider = ({ children }) => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-
   const handleAddToCart = (product, size, qty) => {
     const newItem = {
       product,
@@ -20,7 +20,9 @@ const CartProvider = ({ children }) => {
       size,
     };
     if (cart?.find((item) => item.product._id === product._id)) {
-      console.log("item exist");
+      notifications.show({
+        title: "Item already in cart",
+      });
     } else {
       setCart((items) => [...items, newItem]);
     }
