@@ -68,11 +68,11 @@ function ProfileMenu({ setUserInfo, userInfo }) {
             <Link to={'/admin/userslist'} style={{textDecoration:'none'}}>
             <Menu.Item>Userlist</Menu.Item>
             </Link>
-            <Menu.Item>Orderslist</Menu.Item>
+            <Menu.Item onClick={()=>navigate('/admin/orderslist')}>Orderslist</Menu.Item>
           </>
         ) : (
           <>
-            <Menu.Item  >My orders</Menu.Item>
+            <Menu.Item onClick={()=> navigate('/orders/myorders')} >My orders</Menu.Item>
           </>
         )}
 

@@ -1,19 +1,83 @@
 import Cart from "../components/Cart";
-import { Divider, Select } from "@mantine/core";
+import {  Divider, Select } from "@mantine/core";
 import { Text, Paper, Button } from "@mantine/core";
 import "./PaymentScreen.css";
-import { useContext} from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../contexts/CartContext";
-import { AddressContext } from '../contexts/AddressContext';
+import { AddressContext } from "../contexts/AddressContext";
+import { useMutation } from "@tanstack/react-query";
+import { axiosInstance } from ".././axiosInstance";
+import { notifications } from "@mantine/notifications";
+import { IconCheck, IconX } from "@tabler/icons-react";
 
-function PaymentScreen( ) {
-  const { subTotal,cart } = useContext(CartContext);
-  const { name,phone,city,zipcode,address } = useContext(AddressContext);
-  const shipping = (0.1 * subTotal).toFixed(2) <500 ? (0.1 * subTotal).toFixed(2) : 500 ;
+function PaymentScreen() {
+  const [paymentMethod, setPaymentMethod] = useState("paypal");
+  const { subTotal, cart } = useContext(CartContext);
+  const {
+    name,
+    phone,
+    city,
+    zipcode: postalCode,
+    address,
+  } = useContext(AddressContext);
+  const shipping =
+    (0.1 * subTotal).toFixed(2) < 500 ? (0.1 * subTotal).toFixed(2) : 500;
   const tax = (0.18 * subTotal).toFixed(2);
   const total = (Number(subTotal) + Number(shipping) + Number(tax)).toFixed(2);
+  const orderItems = cart.map((item) => {
+    return {
+      name: item.product.name,
+      qty: item.qty,
+      size: item.size,
+      price: item.product.price,
+      image: item.product.image[0],
+      product: item.product._id,
+    };
+  });
+  const shippingAddress = {
+    address,
+    city,
+    postalCode,
+    country: "India",
+  };
 
-  
+  const itemsPrice = Number(subTotal);
+  const shippingPrice = Number(shipping);
+  const taxPrice = Number(tax);
+  const totalPrice = Number(total);
+
+  const order = {
+    orderItems,
+    shippingAddress,
+    paymentMethod,
+    itemsPrice,
+    shippingPrice,
+    taxPrice,
+    totalPrice,
+  };
+
+  const createOrderMutation = useMutation({
+    mutationKey: ["createOrder"],
+    mutationFn: () => axiosInstance.post("/orders", order),
+    onSuccess: () => {
+      notifications.show({
+        title: "Order placed successfully",
+        icon: <IconCheck />,
+      });
+    },
+    onError: (error) => {
+      notifications.show({
+        title: "Order failed",
+        message: error.response.data.message,
+        color: "red",
+        icon: <IconX />,
+      });
+    },
+  });
+
+  const handlePlaceOrder = () => {
+    createOrderMutation.mutate();
+  };
 
   return (
     <div className="payment-container">
@@ -21,15 +85,15 @@ function PaymentScreen( ) {
         <div className="shipping">
           <h2>Shipping</h2>
           <Paper shadow="xs" p="md" radius="xs">
-            <Text className='address-details'>
+            <Text className="address-details">
               <p>Name: {name}</p>
-
+              <Divider />
               <p>Phone: {phone}</p>
-
+              <Divider />
               <p>City: {city}</p>
-
-              <p>Zipcode: {zipcode}</p>
-
+              <Divider />
+              <p>Zipcode: {postalCode}</p>
+              <Divider />
               <p>Address: {address}</p>
             </Text>
           </Paper>
@@ -39,6 +103,8 @@ function PaymentScreen( ) {
           <Select
             label="Select payment method"
             placeholder="Select payment method"
+            onChange={(e) => setPaymentMethod(e.target.value)}
+            value={paymentMethod}
             data={[
               { value: "paypal", label: "Paypal" },
               { value: "stripe", label: "Stripe" },
@@ -61,7 +127,9 @@ function PaymentScreen( ) {
         <p>Tax - ₹{tax}</p>
         <Divider />
         <h4>Total - ₹{total}</h4>
-        <Button className="order-btn">Place order</Button>
+        <Button className="order-btn" onClick={handlePlaceOrder}>
+          Place order
+        </Button>
       </div>
     </div>
   );
