@@ -2,16 +2,18 @@ import Cart from "../components/Cart";
 import { Divider, Select } from "@mantine/core";
 import { Text, Paper, Button } from "@mantine/core";
 import "./PaymentScreen.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext} from "react";
 import { CartContext } from "../contexts/CartContext";
+import { AddressContext } from '../contexts/AddressContext';
 
-function PaymentScreen({ shippingAddress}) {
-  
-
-  const { subTotal } = useContext(CartContext);
-  const shipping = (0.15 * subTotal).toFixed(2);
+function PaymentScreen( ) {
+  const { subTotal,cart } = useContext(CartContext);
+  const { name,phone,city,zipcode,address } = useContext(AddressContext);
+  const shipping = (0.1 * subTotal).toFixed(2) <500 ? (0.1 * subTotal).toFixed(2) : 500 ;
   const tax = (0.18 * subTotal).toFixed(2);
   const total = (Number(subTotal) + Number(shipping) + Number(tax)).toFixed(2);
+
+  
 
   return (
     <div className="payment-container">
@@ -20,15 +22,15 @@ function PaymentScreen({ shippingAddress}) {
           <h2>Shipping</h2>
           <Paper shadow="xs" p="md" radius="xs">
             <Text className='address-details'>
-              <p>Name: {shippingAddress.name}</p>
+              <p>Name: {name}</p>
 
-              <p>Phone: {shippingAddress.phone}</p>
+              <p>Phone: {phone}</p>
 
-              <p>City: {shippingAddress.city}</p>
+              <p>City: {city}</p>
 
-              <p>Zipcode: {shippingAddress.zipcode}</p>
+              <p>Zipcode: {zipcode}</p>
 
-              <p>Address: {shippingAddress.address}</p>
+              <p>Address: {address}</p>
             </Text>
           </Paper>
         </div>

@@ -25,6 +25,9 @@ const CartProvider = ({ children }) => {
       });
     } else {
       setCart((items) => [...items, newItem]);
+      notifications.show({
+        title: "Item added to cart",
+      });
     }
   };
   const subTotal = cart

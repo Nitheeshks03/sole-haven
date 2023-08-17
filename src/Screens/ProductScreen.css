@@ -37,11 +37,12 @@
   .product-info h1{
     font-family: 'Open Sans', sans-serif;
     font-size: 32px;
-    font-weight: 600;
+    font-weight: 500;
+    margin: 0;
   }
   .product-info p{
     font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
   }
   .product-info h3{
@@ -51,10 +52,20 @@
   }
   .price {
     font-family: 'Open Sans', sans-serif;
-    font-size: 32px;
+    font-size: 22px;
     font-weight: 600;
   }
-  
+  .actual-price {
+    font-size: 16px;
+    text-decoration: line-through;
+    color: #828282;
+  }
+ 
+  .discount {
+    font-size: 16px;
+    color: #828282;
+  }
+ 
 
   
 

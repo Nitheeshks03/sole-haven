@@ -11,7 +11,7 @@ import { notifications } from "@mantine/notifications";
 
 function ProductScreen() {
   const { handleAddToCart } = useContext(CartContext);
-  const { handleAddToWishList} = useContext(WishListContext);
+  const { handleWishList } = useContext(WishListContext);
   const [size, setSize] = useState("6");
   const { id: productId } = useParams();
 
@@ -23,7 +23,6 @@ function ProductScreen() {
     axiosInstance.get(`/products/${productId}`).then((res) => res.data)
   );
   const handleAddItem = () => {
-    
     handleAddToCart(product, size, 1);
   };
   isError &&
@@ -32,6 +31,9 @@ function ProductScreen() {
       message: "Something went wrong",
       color: "red",
     });
+  const price = product?.price;
+  const actualPrice = price + 500;
+  const discount = Math.floor(((actualPrice - price) / actualPrice) * 100);
   return (
     <div className="product-container">
       <div className="image-container">
@@ -47,15 +49,23 @@ function ProductScreen() {
       <div className="product-info">
         {isLoading && <Loader />}
         <h1>{product?.name}</h1>
+        <p style={{ fontSize: "16px", opacity: "0.7" }}>
+          {product?.subCategory}
+        </p>
         <Divider />
         <p>{product?.description}</p>
         <Divider />
-        <h2 className="price">{product?.price}</h2>
+        <h2 className="price">
+          {product?.price}/ <span className="actual-price">{actualPrice}</span>{" "}
+          <span className="discount">{discount}% off</span>
+        </h2>
+        <br />
         <h3>SELECT SIZE</h3>
+        <br />
         <SizeSelector setSize={setSize} size={size} />
         <div className="buttons">
           <Button
-            variant="filled"
+            variant="gradient"
             color="dark"
             size="md"
             onClick={handleAddItem}
@@ -66,7 +76,7 @@ function ProductScreen() {
             variant="outline"
             color="dark"
             size="md"
-            onClick={handleAddToWishList}
+            onClick={()=>handleWishList(product)}
           >
             Add To Wishlist
           </Button>

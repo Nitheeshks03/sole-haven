@@ -6,23 +6,25 @@ import {
   Title,
   Button,
 } from "@mantine/core";
+import { AddressContext } from "../contexts/AddressContext";
+import { useContext } from "react";
 
-
-export default function ShippingScreen({
-  shippingAddress,
-  setShippingAddress,
-  handleStepChange,
-  active,
-  
-}) {
-  const handleInputChange = (fieldName, value) => {
-    setShippingAddress({ ...shippingAddress, [fieldName]: value });
+export default function ShippingScreen({ handleStepChange, active }) {
+  const {
+    name,
+    setName,
+    phone,
+    setPhone,
+    city,
+    setCity,
+    zipcode,
+    setZipcode,
+    address,
+    setAddress,
+  } = useContext(AddressContext);
+  const handleStep = () => {
+    handleStepChange(active + 1);
   };
-  const handleStep=()=>{
-    localStorage.setItem('shippingAddress',JSON.stringify(shippingAddress));
-    handleStepChange(active+1);
-
-  }
   return (
     <form style={{ margin: "50px 100px" }}>
       <Title
@@ -41,38 +43,34 @@ export default function ShippingScreen({
         <TextInput
           label="Name"
           placeholder="Your name"
-          name="name"
+          value={name}
           variant="filled"
           required
-          onChange={(e) => handleInputChange("name", e.target.value)}
-       
+          onChange={(e) => setName( e.target.value)}
         />
         <TextInput
           label="Phone"
           placeholder="Your phone number"
-          name="phone"
+          value={phone}
           variant="filled"
           required
-          onChange={(e) => handleInputChange("phone", e.target.value)}
-       
+          onChange={(e) => setPhone( e.target.value)}
         />
         <TextInput
           label="City"
           placeholder="City"
-          name="city"
+          value={city}
           variant="filled"
           required
-          onChange={(e) => handleInputChange("city", e.target.value)}
-       
+          onChange={(e) => setCity( e.target.value)}
         />
         <TextInput
           label="Zip code"
           placeholder="zip code"
-          name="zipcode"
+          value={zipcode}
           variant="filled"
           required
-          onChange={(e) => handleInputChange("zipcode", e.target.value)}
-       
+          onChange={(e) => setZipcode( e.target.value)}
         />
       </SimpleGrid>
 
@@ -83,19 +81,14 @@ export default function ShippingScreen({
         maxRows={10}
         minRows={5}
         autosize
-        name="address"
+        value={address}
         variant="filled"
         required
-        onChange={(e) => handleInputChange("address", e.target.value)}
-      
+        onChange={(e) => setAddress( e.target.value)}
       />
 
-      <Group position='center' mt="xl">
-        <Button
-          type="submit"
-          size="md"
-          onClick={handleStep}
-        >
+      <Group position="center" mt="xl">
+        <Button type="submit" size="md" onClick={handleStep}>
           Proceed to Payment
         </Button>
       </Group>

@@ -5,7 +5,9 @@ import { Loader } from "@mantine/core";
 import { axiosInstance } from "../axiosInstance";
 
 
+
 function AllProductsScreen() {
+
   const {
     isLoading,
     isError,

@@ -4,16 +4,10 @@ import CartScreen from "../screens/CartScreen";
 import ShippingScreen from "../screens/ShippingScreen";
 import PaymentScreen from "../screens/PaymentScreen";
 
-function Steps({ cart, setCart }) {
+function Steps() {
   const [active, setActive] = useState(0);
   const [highestStepVisited, setHighestStepVisited] = useState(active);
-  const [shippingAddress, setShippingAddress] = useState({
-    name: "",
-    phone: "",
-    city: "",
-    Zipcode: "",
-    address: "",
-  });
+
 
   const handleStepChange = (nextStep) => {
     const isOutOfBounds = nextStep > 3 || nextStep < 0;
@@ -52,8 +46,6 @@ function Steps({ cart, setCart }) {
           allowStepSelect={shouldAllowSelectStep(1)}
         >
           <ShippingScreen
-            shippingAddress={shippingAddress}
-            setShippingAddress={setShippingAddress}
             handleStepChange={handleStepChange}
             active={active}
           />
@@ -63,7 +55,7 @@ function Steps({ cart, setCart }) {
           description="select payment method"
           allowStepSelect={shouldAllowSelectStep(2)}
         >
-          <PaymentScreen shippingAddress={shippingAddress} />
+          <PaymentScreen />
         </Stepper.Step>
 
         <Stepper.Completed>

@@ -13,7 +13,7 @@ import ProductListScreen from "./screens/admin/ProductListScreen";
 import UsersListScreen from "./screens/admin/UsersListScreen";
 import CreateProductScreen from './screens/admin/CreateProductScreen';
 import MainHeaderWrapper from './components/MainHeaderWrapper';
-
+import StepsWrapper from './components/StepsWrapper';
 
 function App() {
  
@@ -36,8 +36,9 @@ function App() {
             path="/products/women"
             element={<WomenProductScreenWrapper />}
           />
-
-          <Route path="/cart" element={<Steps />} />
+         
+          <Route path="/cart" element={ <StepsWrapper/>} />
+          
         </Routes>
       </CartProvider>
       <Footer  />

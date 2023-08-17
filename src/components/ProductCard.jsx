@@ -40,6 +40,8 @@ function ProductCard({
   product,
 }) {
   const { handleWishList } = useContext(WishListContext);
+  const actualPrice = price + 500;
+  const discount = Math.floor(((actualPrice - price) / actualPrice) * 100);
 
   const { classes } = useStyles();
 
@@ -61,7 +63,10 @@ function ProductCard({
         to={`/products/${id}`}
         style={{ textDecoration: "none", color: "black" }}
       >
-        <Card.Section>
+        <Card.Section sx={{ "&:hover": {
+          scale: "1.2",
+          transition: "all 0.3s ease-in-out",
+        },}}   >
           <img
             style={{ width: "100%", objectFit: "cover" }}
             src={image}
@@ -91,8 +96,9 @@ function ProductCard({
         </Card.Section>
 
         <Card.Section className={classes.section} mt="md">
-          <Text fz="20px" fw={500}>
-            ₹{price}
+          <Text fz="18px" fw={500}>
+            ₹{price} /<span style={{ fontSize: "14px",textDecoration:'line-through',opacity:'0.7' }}>{actualPrice}</span>
+            <span style={{ fontSize: "14px",opacity:'0.7' }}>{discount}% off</span>
           </Text>
         </Card.Section>
       </Link>
@@ -100,9 +106,9 @@ function ProductCard({
       <Group mt="xs">
         <Button
           radius="md"
-          variant="outline"
+          variant="gradient"
           style={{ flex: 1 }}
-          onClick={()=>handleWishList(product)}
+          onClick={() => handleWishList(product)}
         >
           Add to Wishlist
           <IconHeart

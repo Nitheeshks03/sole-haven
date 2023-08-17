@@ -56,6 +56,8 @@ function WishListCard({ product }) {
     const newWishList = wishList.filter((item) => item._id !== id);
     setWishList(newWishList);
   };
+  const actualPrice = price + 500;
+  const discount = Math.floor(((actualPrice - price) / actualPrice) * 100);
 
   return (
     <Card
@@ -71,7 +73,9 @@ function WishListCard({ product }) {
         },
       }}
     >
-      <Card.Section sx={{ position: "relative" }}>
+      <Card.Section sx={{ position: "relative", "&:hover": {
+              scale: "1.1",
+              transition: "all 0.3s ease-in-out" }}}>
         <img
           src={image[0]}
           style={{ width: "100%", objectFit: "cover" }}
@@ -109,13 +113,14 @@ function WishListCard({ product }) {
 
       <Card.Section className={classes.section} mt="md">
         <Text fz="18px" fw={500}>
-          ₹{price}
+        ₹{price} /<span style={{ fontSize: "14px",textDecoration:'line-through',opacity:'0.7' }}>{actualPrice}</span>
+            <span style={{ fontSize: "14px",opacity:'0.7' }}>{discount}% off</span>
         </Text>
       </Card.Section>
       <Group mt="xs">
         <Button
           radius="md"
-          variant="outline"
+          variant="gradient"
           style={{ flex: 1 }}
           onClick={handleRedirect}
         >
