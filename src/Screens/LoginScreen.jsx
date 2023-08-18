@@ -44,7 +44,7 @@ function LoginScreen() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  const { isLoginOpen, handleLoginClose } = useContext(UserContext);
+  const { isLoginOpen, handleLoginClose,handleRegisterOpen } = useContext(UserContext);
 
   return (
     <>
@@ -71,6 +71,7 @@ function LoginScreen() {
               password={password}
               setPassword={setPassword}
               handleLoginClose={handleLoginClose}
+              handleRegisterOpen={handleRegisterOpen}
             />
           </div>
         </>
@@ -87,6 +88,7 @@ function LoginModal({
   password,
   setPassword,
   handleLoginClose,
+  handleRegisterOpen,
 }) {
   const loginData = {
     email,
@@ -124,6 +126,10 @@ function LoginModal({
     loginMutation.mutate(loginData);
   };
 
+  const handleRegister = () => {
+    handleLoginClose();
+    handleRegisterOpen();
+  };
   return (
     <Container size={420} my={40}>
       <Title
@@ -142,7 +148,7 @@ function LoginModal({
         sx={{ fontFamily: "'IBM Plex Mono', monospace" }}
       >
         Do not have an account yet?
-        <Anchor size="sm" component="button">
+        <Anchor size="sm" component="button" onClick={handleRegister}>
           Create account
         </Anchor>
       </Text>

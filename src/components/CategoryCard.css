@@ -51,3 +51,9 @@ figure:after {
 .category-card:hover {
   --hover: 1;
 }
+
+@media screen and (max-width: 1300px){
+  .category-card{
+    width: 200px;
+  }
+}

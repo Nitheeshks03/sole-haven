@@ -1,12 +1,12 @@
-import { createStyles, Paper, Text, Title, rem } from "@mantine/core";
+import { createStyles, Paper, Text, Title, rem, MediaQuery } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { useHover } from "@mantine/hooks";
 import { IconArrowRight } from "@tabler/icons-react";
 
 const useStyles = createStyles((theme) => ({
   card: {
-    height: rem(340),
-    width: rem(280),
+    height: rem(300),
+    width: rem(250),
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -14,7 +14,16 @@ const useStyles = createStyles((theme) => ({
     backgroundSize: "cover",
     backgroundPosition: "center",
   },
-
+  smallerCard: {
+    height: rem(300),
+    width: rem(250),
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  },
   title: {
     fontFamily: `Open Sans ${theme.fontFamily}`,
     fontWeight: 600,
@@ -35,7 +44,7 @@ const useStyles = createStyles((theme) => ({
 export function TrendingProductCard({ image, title, category, id }) {
   const navigate = useNavigate();
   const { hovered, ref } = useHover();
-
+  const screenWidth = window.innerWidth;
   const { classes } = useStyles();
 
   return (
@@ -53,7 +62,7 @@ export function TrendingProductCard({ image, title, category, id }) {
       }}
       ref={ref}
       onClick={() => navigate(`/products/${id}`)}
-      className={classes.card}
+      className={screenWidth > 1102 ? classes.card : classes.smallerCard }
     >
       <div>
         <Text className={classes.category} size="xs">
