@@ -80,7 +80,7 @@ function HomeScreen() {
             <Button variant="gradient"> See all Products</Button>
           </Link>
         </div> }
-        {screenWidth < 900 && <Button onClick={()=>navigate('/products')} className='view-all-products' variant='gradient'>View all products</Button>}
+        {screenWidth < 900 && <Button onClick={()=>navigate('/products')} className='view-all-products' variant='gradient'>All collections</Button>}
       </div>
       <Divider my="sm" />
       <div className="section-heading">

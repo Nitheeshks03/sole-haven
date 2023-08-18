@@ -134,15 +134,14 @@
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .shoe-image {
     transform: none;
   }
 
   .home-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto auto;
-    gap: 10px;
+   display: flex;
+   flex-direction: column;
   }
 
   .tag-line {
@@ -152,10 +151,11 @@
   .shoe-container {
     grid-column: span 1;
   }
-
-  .description-container {
-    grid-row: auto;
-  }
+.category-container{
+  display : flex;
+  
+}
+ 
 }
 
 @media screen and (max-width: 480px) {
