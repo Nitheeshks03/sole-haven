@@ -1,83 +1,71 @@
-
 .home-container {
-    padding-left: 100px;
-    padding-right: 100px;
-    text-align: center;
-    position: relative;
-    display: grid;
-    grid-template-columns:25% 25% 25% 25%;
-    grid-template-rows:25% 25% 25% 25%;
-  }
-  .category-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    left: 100px;
-    
-  }
-  
-  .shoe-name {
-    grid-column: 4/4;
-    grid-row: 1/span 1;
-    font-family: 'Exo', sans-serif;
-    font-size: 80px;
-    font-weight: 200;
-    font-style: italic;
-    margin: 0;
-  }
-  .shoe-container{
-    grid-column: 2/3;
-  }
-  
-  .shoe-image {
-    transform: rotate(-30deg);
-    width: 700px;
-  }
+ 
+  text-align: center;
+  position: relative;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 25% 25% 25% 25%;
+}
+.category-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  left: 100px;
+}
 
-  .description-container {
-    grid-column: 4;
-    grid-row: 3;
-    display: grid;
-    grid-template-rows: 50% 50%;
-  }
-  .description-container p {
-    grid-row: 1;
-    font-family: 'Open Sans', sans-serif;
-    word-spacing: 2px;
-    font-size: 14px;
-    font-weight: 400;
-    
+.shoe-name {
+  grid-column: 4/4;
+  grid-row: 1 / span 1;
+  font-family: "Exo", sans-serif;
+  font-size: 80px;
+  font-weight: 200;
+  font-style: italic;
+  margin: 0;
+}
+.shoe-container {
+  grid-column: 2/3; 
+}
 
-  }
-  
-  .product-cards-container {
-    text-align: center;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .card {
-    width: 18rem;
-    margin: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    overflow: hidden;
-  }
-  
-  .card-img-top {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
-  
-  .card-body {
-    padding: 10px;
-  }
-  .btn-allproducts{
-    grid-row: 6;
-    max-width: max-content;
-    margin: 0 auto;
-  }
-  
+.shoe-image {
+  transform: rotate(-30deg);
+}
+
+.description-container {
+  grid-column: 4;
+  grid-row: 3;
+  display: grid;
+  grid-template-rows: 50% 50%;
+}
+.description-container p {
+  grid-row: 1;
+  font-family: "Open Sans", sans-serif;
+  word-spacing: 2px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+.products-container{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.products-heading{
+  font-family: "Exo", sans-serif;
+  font-size: 28px;
+  font-weight: 300;
+
+
+}
+.btn-allproducts {
+  grid-row: 6;
+  max-width: max-content;
+  margin: 0 auto;
+}

@@ -80,7 +80,7 @@ const { cartQty } = useContext(CartContext);
     <>
     {isLoginOpen && <LoginScreen />}
     {isRegisterOpen && <RegisterScreen />}
-    <Box pb={80} style={{ paddingRight: "100px", paddingLeft: "100px" }}>
+    <Box pb={80}>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: "100%" }}>
           <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
@@ -117,7 +117,7 @@ const { cartQty } = useContext(CartContext);
               <Tooltip label="Wishlist" position="left">
                 <IconHeart
                   size="1.8rem"
-                  color="blue"
+                  color="grey"
                   className={classes.like}
                   stroke={1.2}
                 />

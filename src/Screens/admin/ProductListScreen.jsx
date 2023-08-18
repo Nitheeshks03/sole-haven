@@ -48,7 +48,7 @@ export function ProductListScreen() {
       queryClient.invalidateQueries(["products"]);
       notifications.show({
         title: "Product Deleted",
-        color: "red",
+        color: "green",
         autoClose: 1500,
         icon: <IconCheck />,
       });

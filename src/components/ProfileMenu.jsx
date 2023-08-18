@@ -4,7 +4,6 @@ import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "../axiosInstance";
 import { notifications } from "@mantine/notifications";
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 const avatar = (
   <Avatar alt="Avatar for badge" size={24} mr={5} src="./images/avatar.png" />
@@ -59,15 +58,14 @@ function ProfileMenu({ setUserInfo, userInfo }) {
       <Menu.Dropdown>
       <Menu.Label>Profile</Menu.Label>
             <Divider />
-      <Menu.Item>Account</Menu.Item>
+      <Menu.Item onClick={()=> navigate('/user/profile')}>Account</Menu.Item>
         {userInfo.data.isAdmin ? (
           <>
-            <Link to={'/admin/productslist'} style={{textDecoration:'none'}}>
-            <Menu.Item>Products</Menu.Item>
-            </Link>
-            <Link to={'/admin/userslist'} style={{textDecoration:'none'}}>
-            <Menu.Item>Userlist</Menu.Item>
-            </Link>
+         
+            <Menu.Item onClick={()=> navigate('/admin/productslist')}>Products</Menu.Item>
+          
+            <Menu.Item onClick={()=> navigate('/admin/userslist')}>Userlist</Menu.Item>
+       
             <Menu.Item onClick={()=>navigate('/admin/orderslist')}>Orderslist</Menu.Item>
           </>
         ) : (

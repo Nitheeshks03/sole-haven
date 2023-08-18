@@ -20,7 +20,7 @@ export function UserOrdersListScreen() {
     <tr key={item._id}>
       <td>
         <Group spacing="sm">
-          <Avatar size={40} src={item.avatar} radius={40} />
+          <Avatar size={40} src={item.orderItems[0].image} radius={40} />
           <div>
             <Text fz="sm" fw={500}>
               {item.orderItems[0].name}

@@ -14,10 +14,10 @@ import { notifications } from "@mantine/notifications";
 import { IconCheck, IconX } from "@tabler/icons-react";
 
 export function OrdersListScreen() {
+  const queryClient = useQueryClient();
   const {
     data: orders,
     isLoading,
-    refetch,
   } = useQuery({
     queryKey: ["Orders"],
     queryFn: () => axiosInstance.get("/orders").then((res) => res.data),
@@ -32,7 +32,8 @@ export function OrdersListScreen() {
         color: "green",
         autoClose: 2000,
         icon: <IconCheck />,
-      });
+      }),
+      queryClient.invalidateQueries(["Orders"]);
     },
     onError: (error) => {
       notifications.show({
@@ -47,7 +48,7 @@ export function OrdersListScreen() {
 
   const handleMarkAsDelivered = (id) => {
     markAsDeliveredMutation.mutate(id);
-    useQueryClient.invalidateQueries("Orders");
+   
   };
 
   const rows = orders?.map((item) => (

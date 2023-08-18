@@ -1,7 +1,11 @@
 import "./HomeScreen.css";
-import { Button, Divider } from "@mantine/core";
+import { Button, Divider,Loader } from "@mantine/core";
 import CategoryCard from "../components/CategoryCard";
 import { Link } from "react-router-dom";
+import FeatureSection from '../components/FeatureSection';
+import TrendingProductCard from '../components/TrendingProductCard';
+import {useQuery} from '@tanstack/react-query';
+import {axiosInstance} from '../axiosInstance';
 const FIGURE_STYLES_WOMEN = {
   aspectRatio: "8 / 5",
   "--bg": "hsl(330, 80%, calc(90% - (var(--hover) * 10%)))",
@@ -28,6 +32,8 @@ const FIGURE_STYLES_MEN = {
 };
 
 function HomeScreen() {
+  const {data: product,isLoading} = useQuery(['products'], () => axiosInstance.get('/products').then(res => res.data));
+
   return (
     <>
       <div className="home-container">
@@ -63,6 +69,24 @@ function HomeScreen() {
             <Button variant="gradient" > See all Products</Button>
           </Link>
         </div>
+      </div>
+      <Divider my="sm" />
+      <div className="products-container">
+        <h1 className="products-heading">Hot picks</h1>
+        <div className="products">
+          {isLoading && <Loader variant='bars'/>}
+        {product?.filter((item)=> item.rating> 4.5
+        ).map((item) => (
+          <TrendingProductCard
+            key={item._id}
+            image={item.image}
+            title={item.name}
+            category={item.brand}
+            id = {item._id}
+          />
+        ))}
+        </div>
+
       </div>
       <Divider my="sm" />
     </>

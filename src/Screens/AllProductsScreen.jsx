@@ -22,12 +22,10 @@ function AllProductsScreen() {
       <Carousels />
       <div
         style={{
-          margin: "0 100px",
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
-          gridGap: "20px",
-          paddingLeft:'50px'
-
+          columnGap: "100px",
+          rowGap: "50px",
         }}
       >
         {isError && <div>Something went wrong ...</div>}

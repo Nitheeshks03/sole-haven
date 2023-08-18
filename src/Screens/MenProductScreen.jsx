@@ -26,12 +26,10 @@ function MenProductScreen() {
         />
       )}
       <div
-        style={{
-          margin: "0 100px",
+        style={{ 
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
-          gridGap: "20px",
-          paddingLeft: "50px",
+          gridGap: "100px",
         }}
       >
         {products?.map((product, index) =>

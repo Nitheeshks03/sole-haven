@@ -7,7 +7,7 @@ const useStyles = createStyles((theme) => ({
     marginTop: rem(120),
     borderTop: `${rem(1)} solid ${
       theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
-    }`, marginRight:rem(100),marginLeft:rem(100),
+    }`,
   },
 
   inner: {
@@ -28,8 +28,13 @@ const useStyles = createStyles((theme) => ({
     },
   },
 }));
-
-function Footer({ links }) {
+const links = [
+  { label: 'About', link: '#' },
+  { label: 'Contact', link: '#' },
+  { label: 'Terms of Use', link: '#' },
+  { label: 'Privacy Policy', link: '#' },
+];
+function Footer() {
   const { classes } = useStyles();
   const items = links?.map((link) => (
     <Anchor
@@ -47,7 +52,7 @@ function Footer({ links }) {
   return (
     <div className={classes.footer}>
       <div className={classes.inner}>
-      <h1 style={{margin:'0',fontFamily: 'Syncopate',fontSize:'24px'}}>S H</h1>
+      <h1 style={{margin:'0',fontFamily: 'Montserrat',fontSize:'24px'}}>S H</h1>
 
         <Group className={classes.links}>{items}</Group>
 

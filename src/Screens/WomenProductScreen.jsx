@@ -20,11 +20,10 @@ function WomenProductScreen() {
 
     <div
       style={{
-        margin: "0 100px",
         display: "grid",
         gridTemplateColumns: "repeat(4, 1fr)",
         gridGap: "20px",
-        paddingLeft: "50px",
+        // paddingLeft: "50px",
       }}
     >
       {products?.map((product, index) =>

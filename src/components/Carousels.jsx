@@ -22,7 +22,7 @@ export default function Carousels() {
 
   return (
     <Carousel
-      style={{ maxWidth: "100%", margin: "0 100px" }}
+      style={{ maxWidth: "100%"}}
       mx="auto"
       height={400}
     >
