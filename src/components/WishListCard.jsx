@@ -74,7 +74,7 @@ function WishListCard({ product }) {
       }}
     >
       <Card.Section sx={{ position: "relative", "&:hover": {
-              scale: "1.1",
+              scale: "1.05",
               transition: "all 0.3s ease-in-out" }}}>
         <img
           src={image[0]}

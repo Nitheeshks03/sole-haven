@@ -37,11 +37,10 @@ function WishListScreen() {
   return (
     <div
       style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr 1fr 1fr",
-        gap: "20px",
-        margin: "0 100px",
-        paddingLeft:'20px'
+       display: "flex",
+       justifyContent:'space-evenly',
+       flexWrap:'wrap',
+       
       }}
     >
       {wishList.map((product) => (

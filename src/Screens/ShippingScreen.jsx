@@ -10,6 +10,7 @@ import { AddressContext } from "../contexts/AddressContext";
 import { useContext } from "react";
 
 export default function ShippingScreen({ handleStepChange, active }) {
+  const screenWidth = window.innerWidth;
   const {
     name,
     setName,
@@ -25,8 +26,13 @@ export default function ShippingScreen({ handleStepChange, active }) {
   const handleStep = () => {
     handleStepChange(active + 1);
   };
+const FORM_STYLE= screenWidth >1000 ? {
+  margin: "50px 100px",
+} : {
+  margin: "50px 10px",
+}
   return (
-    <form style={{ margin: "50px 100px" }}>
+    <form style={FORM_STYLE}>
       <Title
         order={2}
         size="h1"

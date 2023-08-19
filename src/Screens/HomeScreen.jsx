@@ -54,7 +54,7 @@ function HomeScreen() {
           />
         </div>
         <div className="category-container">
-          <Link to="/products/women" style={{ paddingBottom: "40px" }}>
+          <Link to="/products/women" style={{paddingBottom:'40px'}}>
             <CategoryCard
               title={"Women"}
               image={"images/category-women.png"}

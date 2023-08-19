@@ -66,6 +66,32 @@
     color: #828282;
   }
  
+@media screen and (max-width: 1500px) {
+  .product-container {
+    padding-left: 0;
+   
+  }
+
+}
+@media screen and (max-width: 1300px) {
+  .product-container {
+    display: flex;
+    flex-direction: column;
+    padding-right: 0;
+  }
+
+}
+@media screen and (max-width: 400px) {
+ .buttons{
+    display: flex;
+    flex-direction: column;
+ }
+
+}
+
+
+
+
 
   
 

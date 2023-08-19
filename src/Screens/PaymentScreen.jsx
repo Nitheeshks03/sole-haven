@@ -84,7 +84,7 @@ function PaymentScreen() {
       <div className="order">
         <div className="shipping">
           <h2>Shipping</h2>
-          <Paper shadow="xs" p="md" radius="xs">
+          <Paper className='shipping-details' shadow="xs" p="md" radius="xs">
             <Text className="address-details">
               <p>Name: {name}</p>
               <Divider />

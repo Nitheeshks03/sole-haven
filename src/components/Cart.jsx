@@ -71,7 +71,7 @@ export function Cart() {
         />
       </td>
       <td>₹{item.product.price}</td>
-      <td>
+      <td style={{overflow:'hidden'}}>
         <Badge
           color="red"
           variant="light"
@@ -86,7 +86,7 @@ export function Cart() {
 
   return (
     <ScrollArea>
-      <Table miw={800} verticalSpacing="sm" highlightOnHover>
+      <Table  verticalSpacing="sm" highlightOnHover >
         <thead>
           <tr>
             <th>Product</th>

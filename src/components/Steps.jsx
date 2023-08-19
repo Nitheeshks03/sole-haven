@@ -7,7 +7,7 @@ import PaymentScreen from "../screens/PaymentScreen";
 function Steps() {
   const [active, setActive] = useState(0);
   const [highestStepVisited, setHighestStepVisited] = useState(active);
-
+   const screenWidth = window.innerWidth;
 
   const handleStepChange = (nextStep) => {
     const isOutOfBounds = nextStep > 3 || nextStep < 0;
@@ -22,6 +22,9 @@ function Steps() {
 
   const shouldAllowSelectStep = (step) =>
     highestStepVisited >= step && active !== step;
+    const STEPPER_STYLE= screenWidth >1000 && {
+      padding: "0 100px",
+    }
 
   return (
     <>
@@ -29,7 +32,7 @@ function Steps() {
         active={active}
         onStepClick={setActive}
         breakpoint="sm"
-        sx={{ padding: "0 100px" }}
+        sx={STEPPER_STYLE}
         
       >
         <Stepper.Step

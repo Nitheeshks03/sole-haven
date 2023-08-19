@@ -16,29 +16,7 @@ import { axiosInstance } from "../axiosInstance.js";
 import { useMutation } from "@tanstack/react-query";
 import { notifications } from "@mantine/notifications";
 import { UserContext } from "../contexts/UserContext.jsx";
-const MODAL_STYLES = {
-  position: "fixed",
-  height: "500px",
-  width: "500px",
-  borderRadius: "5px",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  padding: "20px",
-  zIndex: 1001,
-  display: "flex",
-  alignItems: "center",
-  backgroundColor: "#fff",
-};
-const OVERLAY_STYLES = {
-  position: "fixed",
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backgroundColor: "rgba(42, 102, 152, 0.7)",
-  zIndex: 10,
-};
+import './LoginScreen.css';
 
 function LoginScreen() {
   const [password, setPassword] = useState("");
@@ -50,8 +28,8 @@ function LoginScreen() {
     <>
       {isLoginOpen && (
         <>
-          <div style={OVERLAY_STYLES} />
-          <div style={MODAL_STYLES}>
+          <div className='login-overlay' />
+          <div className='login-modal'>
             <button
               style={{
                 position: "absolute",
@@ -64,7 +42,6 @@ function LoginScreen() {
             >
               &times;
             </button>
-
             <LoginModal
               email={email}
               setEmail={setEmail}
@@ -131,13 +108,15 @@ function LoginModal({
     handleRegisterOpen();
   };
   return (
-    <Container size={420} my={40}>
+    <Container className='form-container' >
       <Title
         align="center"
         sx={(theme) => ({
           fontFamily: `VT323, ${theme.fontFamily}`,
           fontWeight: 400,
+          marginTop:'0'
         })}
+        
       >
         Welcome back!
       </Title>

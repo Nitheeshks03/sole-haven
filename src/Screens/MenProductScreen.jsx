@@ -27,9 +27,9 @@ function MenProductScreen() {
       )}
       <div
         style={{ 
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gridGap: "100px",
+          display: "flex",
+          justifyContent:'space-around',
+          flexWrap:'wrap'
         }}
       >
         {products?.map((product, index) =>

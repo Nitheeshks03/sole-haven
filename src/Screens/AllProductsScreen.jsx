@@ -22,10 +22,9 @@ function AllProductsScreen() {
       <Carousels />
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          columnGap: "100px",
-          rowGap: "50px",
+          display: "flex",
+          justifyContent:'space-around',
+          flexWrap:'wrap'
         }}
       >
         {isError && <div>Something went wrong ...</div>}

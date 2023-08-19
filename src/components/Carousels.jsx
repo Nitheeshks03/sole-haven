@@ -2,7 +2,7 @@ import { Carousel } from "@mantine/carousel";
 
 
 const images = [
-  "/images/carousel-1.jpg",
+  "/images/carousel-1.png",
   "/images/carousel-2.jpg",
   "/images/carousel-3.jpg",
 ];
@@ -12,19 +12,18 @@ export default function Carousels() {
     <Carousel.Slide
       key={image}
       style={{
-        background: `url(${image}) repeat-x center/cover`,
-        width: "100%",
+        background: `url(${image})` ,
       }}
     >
-      <img src={image} alt="slide" />
+      <img src={image} alt="slide" style={{maxWidth:'100vw'}} />
     </Carousel.Slide>
   ));
 
   return (
     <Carousel
-      style={{ maxWidth: "100%"}}
       mx="auto"
       height={400}
+
     >
       {slides}
     </Carousel>
