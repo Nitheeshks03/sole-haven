@@ -4,18 +4,18 @@ import {
   Table,
   Group,
   Text,
-  Select,
   ScrollArea,
 } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from ".././axiosInstance";
 
 export function UserOrdersListScreen() {
-  const { data : orders, isError, isSuccess } = useQuery({
+  const screenWidth = window.innerWidth;
+  const { data : orders} = useQuery({
     queryKey: ["userOrders"],
     queryFn: () => axiosInstance.get("/orders/myorders").then((res) => res.data),
   });
-  isSuccess && console.log(orders);
+  
   const rows = orders?.map((item) => (
     <tr key={item._id}>
       <td>
@@ -26,15 +26,15 @@ export function UserOrdersListScreen() {
               {item.orderItems[0].name}
             </Text>
             <Text fz="xs" c="dimmed">
-              {item.orderItems[0].size}
+              {screenWidth > 800 ? item.orderItems[0].size : item.orderItems[0]._id}
             </Text>
           </div>
         </Group>
       </td>
 
-      <td>{item.orderItems[0].qty}</td>
+    {screenWidth>800 && <> <td>{item.orderItems[0].qty}</td>
       <td>{item.orderItems[0]._id}</td>
-      <td>{item.paymentMethod}</td>
+      <td>{item.paymentMethod}</td></> }
       <td>
         {item.isDelivered ? (
           <Badge color="gray">
@@ -49,13 +49,13 @@ export function UserOrdersListScreen() {
 
   return (
     <ScrollArea>
-      <Table miw={800} verticalSpacing="sm">
+      <Table  verticalSpacing="sm">
         <thead>
           <tr>
             <th>Product</th>
-            <th>Quantity</th>
-            <th>Order Id</th>
-            <th>Payment method</th>
+           { screenWidth> 800 && <th>Quantity</th>}
+            {screenWidth> 800 &&<th>Order Id</th>}
+            {screenWidth> 800 &&<th>Payment method</th>}
             <th>Order status</th>
           </tr>
         </thead>

@@ -8,6 +8,14 @@ const useStyles = createStyles((theme) => ({
     borderTop: `${rem(1)} solid ${
       theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
     }`,
+    position:'inherit',
+    bottom:'0',
+    right:'0',
+    left:'0',
+    marginLeft:'100px',
+    marginRight:'100px',
+   
+    zIndex:'1',
   },
 
   inner: {
@@ -50,6 +58,7 @@ function Footer() {
   ));
 
   return (
+    
     <div className={classes.footer}>
       <div className={classes.inner}>
       <h1 style={{margin:'0',fontFamily: 'Montserrat',fontSize:'24px'}}>S H</h1>

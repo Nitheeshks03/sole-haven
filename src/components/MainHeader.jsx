@@ -14,7 +14,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link } from "react-router-dom";
-import { IconHeart, IconShoppingCart } from "@tabler/icons-react";
+import { IconHeart, IconShoppingCart,IconSearch } from "@tabler/icons-react";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../contexts/CartContext";
 import { UserContext } from "../contexts/UserContext";
@@ -116,6 +116,7 @@ export default function MainHeader() {
                 </Group>
 
                 <Group className={classes.hiddenMobile}>
+                  <IconSearch  color='grey'/>
                   <Link to={"/wishlist"}>
                     <Tooltip label="Wishlist" position="left">
                       <IconHeart

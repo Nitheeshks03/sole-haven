@@ -53,3 +53,42 @@ left: 50%;
 translate: -50%;
 }
 
+@media screen and (max-width:800px){
+ .profile-container{
+   margin-right: 0 50px;
+   width: 400px;
+ }
+
+}
+@media screen and (max-width:600px){
+ .profile-container{
+   margin-right: 0 50px;
+   width: 350px;
+ }
+ .user-details{
+    padding-left: 20px;
+ }
+
+}
+@media screen and (max-width:500px){
+ .profile-container{
+   margin-right: 0 20px;
+   width: 300px;
+   padding: 10px;
+ }
+ .user-details{
+    padding-left: 20px;
+ }
+
+}
+@media screen and (max-width:400px){
+ .profile-container{
+   width: 280px;
+   padding-right: 15px;
+ }
+ .user-details{
+    padding-left: 20px;
+ }
+
+}
+

@@ -116,7 +116,8 @@ function EditProfile({ handleFormClose }) {
         bottom: "0",
         left: "50%",
         translate: "-50%",
-        width: "500px",
+        maxWidth:'500px',
+        minWidth:'280px'
       }}
     >
       <IconX cursor={"pointer"} onClick={handleFormClose} />
