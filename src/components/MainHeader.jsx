@@ -11,16 +11,21 @@ import {
   Badge,
   Tooltip,
 } from "@mantine/core";
-import {  useClickOutside, useDisclosure } from "@mantine/hooks";
+import { useClickOutside, useDisclosure } from "@mantine/hooks";
 import { Link } from "react-router-dom";
-import { IconHeart, IconShoppingCart,IconSearch,IconShoppingBag } from "@tabler/icons-react";
+import {
+  IconHeart,
+  IconShoppingCart,
+  IconSearch,
+  IconShoppingBag,
+} from "@tabler/icons-react";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../contexts/CartContext";
 import { UserContext } from "../contexts/UserContext";
 import ProfileMenu from "./ProfileMenu";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
-import SearchBox from './SearchBox';
+import SearchBox from "./SearchBox";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -65,9 +70,8 @@ const useStyles = createStyles((theme) => ({
 export default function MainHeader() {
   const screenWidth = window.innerWidth;
   const [searchBox, setSearchBox] = useState(false);
-  const ref = useClickOutside(()=>setSearchBox(false));
+  const ref = useClickOutside(() => setSearchBox(false));
   const [userInfo, setUserInfo] = useState("");
-  const userName = userInfo ? userInfo.data.name : "";
   const { handleLoginOpen, handleRegisterOpen, isLoginOpen, isRegisterOpen } =
     useContext(UserContext);
   useEffect(() => {
@@ -82,7 +86,14 @@ export default function MainHeader() {
   const handleSearchBoxOpen = () => {
     setSearchBox(true);
   };
-
+  const handleLoginOpenMobile = () => {
+    handleLoginOpen();
+    closeDrawer();
+  };
+  const handleRegisterOpenMobile = () => {
+    handleRegisterOpen();
+    closeDrawer();
+  };
 
   return (
     <>
@@ -122,7 +133,16 @@ export default function MainHeader() {
                 </Group>
 
                 <Group className={classes.hiddenMobile}>
- { searchBox ? <SearchBox/> : <IconSearch size='1.7rem' style={{cursor:'pointer'}} onClick={ handleSearchBoxOpen}  color='grey'/> }
+                  {searchBox ? (
+                    <SearchBox />
+                  ) : (
+                    <IconSearch
+                      size="1.7rem"
+                      style={{ cursor: "pointer" }}
+                      onClick={handleSearchBoxOpen}
+                      color="grey"
+                    />
+                  )}
                   <Link to={"/wishlist"}>
                     <Tooltip label="Wishlist" position="left">
                       <IconHeart
@@ -165,46 +185,90 @@ export default function MainHeader() {
           </Box>
         </>
       )}
-
+      {/* Header Mobile */}
       {screenWidth < 870 && (
         <>
-          <div ref={ref} className="mobile-header" style={{display:'flex',justifyContent:'space-between',paddingBottom:'50px'}}>
-            <div className="mobile-header-left">
-              <Burger opened={drawerOpened} onClick={toggleDrawer} />
-              <Drawer
-                opened={drawerOpened}
-                onClose={closeDrawer}
-                padding="md"
-                size={300}
-                position="left"
-              >
-                <ScrollArea>
-                  <Group direction="column" spacing="md">
-                    <Link to={"/"} className={classes.link}>
-                      Home
-                    </Link>
-                  </Group>
-                </ScrollArea>
-              </Drawer>
-            </div>
-            <div className="mobile-header-center" style={{textAlign:'center'}}>
-              <Link to={'/'} style={{textDecoration:'none'}}>
-              <h1 style={{fontSize:'24px',fontFamily:'Open Sans',fontWeight:'500',marginTop:'0',color:'black'}}>Sole Haven</h1></Link>
+          <div
+            ref={ref}
+            className="mobile-header"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              paddingBottom: "50px",
+              paddingTop: "10px",
+            }}
+          >
+            {userInfo ? (
+              <ProfileMenu setUserInfo={setUserInfo} userInfo={userInfo} />
+            ) : (
+              <div className="mobile-header-left">
+                <Burger opened={drawerOpened} onClick={toggleDrawer} />
+                <Drawer
+                  opened={drawerOpened}
+                  onClose={closeDrawer}
+                  padding="md"
+                  size={300}
+                  position="left"
+                >
+                  <ScrollArea>
+                    <Group
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Button
+                        variant="gradient"
+                        sx={{ width: "100%" }}
+                        to={"/"}
+                      >
+                        Home
+                      </Button>
+                      <Button
+                        variant="gradient"
+                        sx={{ width: "100%" }}
+                        onClick={handleLoginOpenMobile}
+                      >
+                        Login
+                      </Button>
+                      <Button variant="gradient" onClick={handleRegisterOpenMobile} sx={{ width: "100%" }}>
+                        Register
+                      </Button>
+                    </Group>
+                  </ScrollArea>
+                </Drawer>
               </div>
-            <div className="mobile-header-right" >
-              
-              { searchBox ? <SearchBox/> : <><IconSearch  style={{cursor:'pointer',marginRight:'20px'}} onClick={ handleSearchBoxOpen}  color='grey'/> 
-              
-              <Link to={"/wishlist"}>
-                <IconHeart color='skyblue' stroke={1.3} />
+            )}
+            <div
+              className="mobile-header-center"
+              style={{ textAlign: "center" }}
+            >
+              <Link to={"/"} style={{ textDecoration: "none" }}>
+                <h1
+                  style={{
+                    fontSize: "20px",
+                    fontFamily: "Open Sans",
+                    fontWeight: "400",
+                    marginTop: "0",
+                    color: "black",
+                  }}
+                >
+                  Sole Haven
+                </h1>
               </Link>
-              <Link to={"/cart"}>
-                <IconShoppingCart  color='blue' style={{paddingLeft:'20px'}}  stroke={1.3} />
-                <Badge>{cartQty}</Badge>
-              </Link></>  }
-              </div>
-                
-
+            </div>
+            <div className="mobile-header-right">
+              {searchBox ? (
+                <SearchBox />
+              ) : (
+                <IconSearch
+                  style={{ cursor: "pointer", marginRight: "20px" }}
+                  onClick={handleSearchBoxOpen}
+                  color="grey"
+                />
+              )}
+            </div>
           </div>
         </>
       )}

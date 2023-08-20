@@ -2,6 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../axiosInstance.js";
 import ProductCard from "../components/ProductCard.jsx";
 import Carousels from "../components/Carousels";
+const images =[
+  "/images/carousel-women-1.jpg",
+  "/images/carousel-women-2.jpg",
+]
 
 function WomenProductScreen() {
   const {
@@ -14,7 +18,7 @@ function WomenProductScreen() {
 
   return (
     <>
-      <Carousels />
+      <Carousels images ={images}/>
 
       <div
         style={{

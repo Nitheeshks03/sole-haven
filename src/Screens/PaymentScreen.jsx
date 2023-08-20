@@ -1,5 +1,5 @@
 import Cart from "../components/Cart";
-import {  Divider, Select } from "@mantine/core";
+import { Divider, Select } from "@mantine/core";
 import { Text, Paper, Button } from "@mantine/core";
 import "./PaymentScreen.css";
 import { useContext, useState } from "react";
@@ -9,8 +9,10 @@ import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from ".././axiosInstance";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconX } from "@tabler/icons-react";
+import { useNavigate } from 'react-router-dom';
 
 function PaymentScreen() {
+  const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState("paypal");
   const { subTotal, cart } = useContext(CartContext);
   const {
@@ -58,12 +60,19 @@ function PaymentScreen() {
 
   const createOrderMutation = useMutation({
     mutationKey: ["createOrder"],
-    mutationFn: () => axiosInstance.post("/orders", order),
+    mutationFn: () =>
+      axiosInstance
+        .post("/orders", order)
+        .then((data) => localStorage.setItem("order", JSON.stringify(data))),
     onSuccess: () => {
       notifications.show({
         title: "Order placed successfully",
+        autoClose: 2000,
         icon: <IconCheck />,
+        onClose: () => navigate('/orders/new'),
       });
+     
+
     },
     onError: (error) => {
       notifications.show({
@@ -84,7 +93,7 @@ function PaymentScreen() {
       <div className="order">
         <div className="shipping">
           <h2>Shipping</h2>
-          <Paper className='shipping-details' shadow="xs" p="md" radius="xs">
+          <Paper className="shipping-details" shadow="xs" p="md" radius="xs">
             <Text className="address-details">
               <p>Name: {name}</p>
               <Divider />

@@ -5,6 +5,11 @@ import { Loader } from "@mantine/core";
 import { axiosInstance } from "../axiosInstance";
 import { useParams } from "react-router-dom";
 
+const images = [
+  "/images/carousel-2.jpg",
+  "/images/carousel-women-2.jpg",
+];
+
 function AllProductsScreen() {
   const { keyword } = useParams();
 
@@ -22,7 +27,7 @@ function AllProductsScreen() {
 
   return (
     <>
-      <Carousels />
+      <Carousels images={images} />
       <div
         style={{
           display: "flex",

@@ -6,6 +6,11 @@ import { WishListContext } from "../contexts/WishListContext.jsx";
 import Carousels from "../components/Carousels";
 import { Loader } from "@mantine/core";
 
+const images = [
+  "/images/carousel-1.png",
+  "/images/carousel-2.jpg",
+];
+
 function MenProductScreen() {
   const { handleWishList } = useContext(WishListContext);
   const {
@@ -17,7 +22,7 @@ function MenProductScreen() {
 
   return (
     <>
-      <Carousels />
+      <Carousels images={images} />
       {isLoading && (
         <Loader
           variant='bars'

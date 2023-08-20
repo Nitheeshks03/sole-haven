@@ -10,6 +10,7 @@ const avatar = (
 );
 
 function ProfileMenu({ setUserInfo, userInfo }) {
+  const screenWidth = window.innerWidth;
   const navigate = useNavigate();
   const userName = userInfo.data.name;
   const logoutMutation = useMutation({
@@ -71,6 +72,10 @@ function ProfileMenu({ setUserInfo, userInfo }) {
         ) : (
           <>
             <Menu.Item onClick={()=> navigate('/orders/myorders')} >My orders</Menu.Item>
+            {screenWidth < 870 && <>
+              <Menu.Item onClick={()=> navigate('/wishlist')} >Wishlist</Menu.Item>
+              <Menu.Item onClick={()=> navigate('/cart')} >My Cart</Menu.Item>
+            </>}
           </>
         )}
 

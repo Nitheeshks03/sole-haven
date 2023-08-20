@@ -1,29 +1,20 @@
 import { Carousel } from "@mantine/carousel";
 
 
-const images = [
-  "/images/carousel-1.png",
-  "/images/carousel-2.jpg",
-  "/images/carousel-3.jpg",
-];
 
-export default function Carousels() {
+
+export default function Carousels({images}) {
   const slides = images.map((image) => (
     <Carousel.Slide
-      key={image}
-      style={{
-        background: `url(${image})` ,
-      }}
+      key={image}  
+      style={{objectFit:'cover',maxHeight:"450px",}}
     >
-      <img src={image} alt="slide" style={{maxWidth:'100vw'}} />
+      <img src={image} alt="slide" style={{width:'100%'}} loading='lazy'/>
     </Carousel.Slide>
   ));
 
   return (
     <Carousel
-      mx="auto"
-      height={400}
-
     >
       {slides}
     </Carousel>
