@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 
 
 export function ProductListScreen() {
+  const screenWidth = window.innerWidth;
   const queryClient = useQueryClient();
   const { data: products, isLoading: productsLoading } = useQuery(
     ["products"],
@@ -94,9 +95,9 @@ export function ProductListScreen() {
           {item.countInStock} in stock
         </Text>
       </td>
-      <td>
+ { screenWidth >500 &&    <td>
         <Text fz="sm">₹{item.price.toFixed(2)}</Text>
-      </td>
+      </td> }
       <td>
         <Group spacing={0} position="right">
           <ActionIcon>

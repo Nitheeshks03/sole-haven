@@ -6,7 +6,6 @@ import FeatureSection from "../components/FeatureSection";
 import TrendingProductCard from "../components/TrendingProductCard";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../axiosInstance";
-import { useWindowScroll } from "@mantine/hooks";
 
 const FIGURE_STYLES_WOMEN = {
   aspectRatio: "8 / 5",
@@ -47,14 +46,10 @@ function HomeScreen() {
           JUST DO <br /> IT
         </h1>
         <div className="shoe-container">
-          <img
-            src="images/home-img.png"
-            alt="Shoe"
-            className="shoe-image"
-          />
+          <img src="images/home-img.png" alt="Shoe" className="shoe-image" />
         </div>
         <div className="category-container">
-          <Link to="/products/women" style={{paddingBottom:'40px'}}>
+          <Link to="/products/women" style={{ paddingBottom: "40px" }}>
             <CategoryCard
               title={"Women"}
               image={"images/category-women.png"}
@@ -69,22 +64,32 @@ function HomeScreen() {
             />
           </Link>
         </div>
-        
-        {screenWidth > 900 && 
-        <div className="description-container">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam id
-            saepe temporibus alias ipsa ullam inventore aliquam optio, facilis.
-          </p>
-          <Link to={"/products"} className="btn-allproducts">
-            <Button variant="gradient"> See all Products</Button>
-          </Link>
-        </div> }
-        {screenWidth < 900 && <Button onClick={()=>navigate('/products')} className='view-all-products' variant='gradient'>All collections</Button>}
+
+        {screenWidth > 900 && (
+          <div className="description-container">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+              id saepe temporibus alias ipsa ullam inventore aliquam optio,
+              facilis.
+            </p>
+            <Link to={"/products"} className="btn-allproducts">
+              <Button variant="gradient"> See all Products</Button>
+            </Link>
+          </div>
+        )}
+        {screenWidth < 900 && (
+          <Button
+            onClick={() => navigate("/products")}
+            className="view-all-products"
+            variant="gradient"
+          >
+            All collections
+          </Button>
+        )}
       </div>
       <Divider my="sm" />
       <div className="section-heading">
-      <h1 >Hot picks</h1>
+        <h1>Hot picks</h1>
       </div>
       <div className="products-container">
         <div className="products">
@@ -103,6 +108,7 @@ function HomeScreen() {
         </div>
       </div>
       <Divider my="sm" />
+      <FeatureSection />
     </>
   );
 }

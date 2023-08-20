@@ -14,6 +14,9 @@ import { notifications } from "@mantine/notifications";
 import { IconCheck, IconX } from "@tabler/icons-react";
 
 export function OrdersListScreen() {
+  const screenWidth = window.innerWidth;
+  let TABLE_STYLES ;
+  screenWidth < 1100 && (TABLE_STYLES = {display:"flex",flexDirection:"column",})
   const queryClient = useQueryClient();
   const {
     data: orders,
@@ -52,7 +55,7 @@ export function OrdersListScreen() {
   };
 
   const rows = orders?.map((item) => (
-    <tr key={item._id}>
+    <tr key={item._id} style={TABLE_STYLES} >
       <td>
         <Group spacing="sm">
           <Avatar size={40} src={item.avatar} radius={40} />
@@ -90,8 +93,8 @@ export function OrdersListScreen() {
   return (
     <ScrollArea>
       {isLoading && <Loader variant="bars" />}
-      <Table miw={800} verticalSpacing="sm">
-        <thead>
+      <Table  verticalSpacing="sm">
+        {screenWidth > 1100 && <thead>
           <tr>
             <th>Product</th>
             <th>Quantity</th>
@@ -101,7 +104,7 @@ export function OrdersListScreen() {
             <th>Order status</th>
             <th>Edit order</th>
           </tr>
-        </thead>
+        </thead>}
         <tbody>{rows}</tbody>
       </Table>
     </ScrollArea>

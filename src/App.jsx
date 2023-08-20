@@ -28,6 +28,7 @@ function App() {
           <Route path="/wishlist" element={<WishListScreenWrapper />} />
           <Route path="/products/:id" element={<ProductScreenWrapper />} />
           <Route path="/products" element={<AllProductScreenWrapper />} />
+          <Route path="/products/search/:keyword" element={<AllProductScreenWrapper />} />
           <Route path="/products/men" element={<MenProductScreenWrapper />} />
           <Route path="/admin/userslist" element={<UsersListScreen />} />
           <Route path="/admin/productslist" element={<ProductListScreen />} />
@@ -40,7 +41,7 @@ function App() {
         </Routes>
       </CartProvider>
 
-      <Footer />
+      <Footer/>
     </>
   );
 }

@@ -12,7 +12,14 @@ import { axiosInstance } from "../../axiosInstance";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { notifications } from "@mantine/notifications";
 
+
+  
+
 export function UsersListScreen() {
+  const screenWidth = window.innerWidth;
+  let TABLE_STYLES ;
+
+screenWidth >500 ? TABLE_STYLES = {marginLeft:'100px', marginRight:'100px',} : TABLE_STYLES = {display:'flex',flexDirection:'column'};
   const queryClient = useQueryClient();
   const { data: users, isLoading } = useQuery(["users"], () =>
     axiosInstance
@@ -42,7 +49,7 @@ export function UsersListScreen() {
   };
 
   const rows = users?.map((item) => (
-    <tr key={item.name}>
+    <tr key={item.name} style={TABLE_STYLES}>
       <td>
         <Group spacing="sm">
           <Avatar size={40} src={item.image} radius={40} />

@@ -3,19 +3,22 @@ import ProductCard from "../components/ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "@mantine/core";
 import { axiosInstance } from "../axiosInstance";
-
-
+import { useParams } from "react-router-dom";
 
 function AllProductsScreen() {
+  const { keyword } = useParams();
 
-  const {
-    isLoading,
-    isError,
-    data: products,
-  } = useQuery(["products"], () =>
+  const { isLoading, isError, data } = useQuery(["products"], () =>
     axiosInstance.get("/products").then((res) => res.data)
   );
 
+  let products = [];
+
+  keyword
+    ? (products = data.filter((product) =>
+        product.name.toLowerCase().includes(keyword.toLowerCase())
+      ))
+    : (products = data);
 
   return (
     <>
@@ -23,8 +26,8 @@ function AllProductsScreen() {
       <div
         style={{
           display: "flex",
-          justifyContent:'space-around',
-          flexWrap:'wrap'
+          justifyContent: "space-around",
+          flexWrap: "wrap",
         }}
       >
         {isError && <div>Something went wrong ...</div>}

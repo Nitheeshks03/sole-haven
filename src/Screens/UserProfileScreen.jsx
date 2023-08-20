@@ -26,44 +26,54 @@ function UserProfileScreen() {
   return (
     <>
       {isLoading && <Loader variant="bars" />}
-      <div className="profile-container">
-        <div className="user-details-label">
-          <h3>
-            <span>
-              <IconUser color="skyblue" />
-            </span>
-            Name
-          </h3>
-          <h3>
-            <span>
-              <IconMail color="skyblue" />
-            </span>
-            Email
-          </h3>
-          <h3>
-            <span>
-              <IconPhone color="skyblue" />
-            </span>
-            Phone
-          </h3>
-          <h3>
-            <span>
-              <IconAddressBook color="skyblue" />
-            </span>
-            Address
-          </h3>
+      <div style={{ display: "flex", justifyContent:'space-between',flexWrap:'wrap' }}>
+    
+        <div className="profile-container">
+          <div className="user-details-label">
+            <h3>
+              <span>
+                <IconUser color="skyblue" />
+              </span>
+              Name
+            </h3>
+            <h3>
+              <span>
+                <IconMail color="skyblue" />
+              </span>
+              Email
+            </h3>
+            <h3>
+              <span>
+                <IconPhone color="skyblue" />
+              </span>
+              Phone
+            </h3>
+            <h3>
+              <span>
+                <IconAddressBook color="skyblue" />
+              </span>
+              Address
+            </h3>
+          </div>
+          <div className="user-details">
+            <p>{profile?.name}</p>
+            <h3>{profile?.email}</h3>
+            <Input placeholder="Enter your phone number" />
+            <Input placeholder="Enter your address" />
+          </div>
         </div>
-        <div className="user-details">
-          <p>{profile?.name}</p>
-          <h3>{profile?.email}</h3>
-          <Input placeholder="Enter your phone number" />
-          <Input placeholder="Enter your address" />
+        <div
+          style={{
+            maxWidth: "500px",
+            minWidth: "280px",
+          }}
+        >
+          {form && <EditProfile handleFormClose={handleFormClose} />}
         </div>
       </div>
       <Button className="btn edit-profile" onClick={handleFormOpen}>
         Edit profile
       </Button>
-      {form && <EditProfile handleFormClose={handleFormClose} />}
     </>
   );
 }
@@ -106,20 +116,10 @@ function EditProfile({ handleFormClose }) {
 
   const handleEditProfile = () => {
     editProfileMutation.mutate();
-    
   };
 
   return (
-    <SimpleGrid
-      sx={{
-        position: "absolute",
-        bottom: "0",
-        left: "50%",
-        translate: "-50%",
-        maxWidth:'500px',
-        minWidth:'280px'
-      }}
-    >
+    <SimpleGrid>
       <IconX cursor={"pointer"} onClick={handleFormClose} />
       <TextInput
         label="Name"

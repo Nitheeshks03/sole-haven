@@ -10,17 +10,17 @@ import {
   rem,
   Badge,
   Tooltip,
-  Text,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import {  useClickOutside, useDisclosure } from "@mantine/hooks";
 import { Link } from "react-router-dom";
-import { IconHeart, IconShoppingCart,IconSearch } from "@tabler/icons-react";
+import { IconHeart, IconShoppingCart,IconSearch,IconShoppingBag } from "@tabler/icons-react";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../contexts/CartContext";
 import { UserContext } from "../contexts/UserContext";
 import ProfileMenu from "./ProfileMenu";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
+import SearchBox from './SearchBox';
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -64,6 +64,8 @@ const useStyles = createStyles((theme) => ({
 
 export default function MainHeader() {
   const screenWidth = window.innerWidth;
+  const [searchBox, setSearchBox] = useState(false);
+  const ref = useClickOutside(()=>setSearchBox(false));
   const [userInfo, setUserInfo] = useState("");
   const userName = userInfo ? userInfo.data.name : "";
   const { handleLoginOpen, handleRegisterOpen, isLoginOpen, isRegisterOpen } =
@@ -77,6 +79,10 @@ export default function MainHeader() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes } = useStyles();
+  const handleSearchBoxOpen = () => {
+    setSearchBox(true);
+  };
+
 
   return (
     <>
@@ -84,7 +90,7 @@ export default function MainHeader() {
       {isRegisterOpen && <RegisterScreen />}
       {screenWidth > 871 && (
         <>
-          <Box pb={80}>
+          <Box ref={ref} pb={80}>
             <Header height={60} px="md">
               <Group position="apart" sx={{ height: "100%" }}>
                 <Link
@@ -116,7 +122,7 @@ export default function MainHeader() {
                 </Group>
 
                 <Group className={classes.hiddenMobile}>
-                  <IconSearch  color='grey'/>
+ { searchBox ? <SearchBox/> : <IconSearch size='1.7rem' style={{cursor:'pointer'}} onClick={ handleSearchBoxOpen}  color='grey'/> }
                   <Link to={"/wishlist"}>
                     <Tooltip label="Wishlist" position="left">
                       <IconHeart
@@ -129,7 +135,7 @@ export default function MainHeader() {
                   </Link>
                   <Link to={"/cart"}>
                     <Tooltip label="Cart" position="bottom">
-                      <IconShoppingCart
+                      <IconShoppingBag
                         size="1.8rem"
                         color="grey"
                         stroke={1.2}
@@ -162,7 +168,7 @@ export default function MainHeader() {
 
       {screenWidth < 870 && (
         <>
-          <div className="mobile-header" style={{display:'flex',justifyContent:'space-between',paddingBottom:'50px'}}>
+          <div ref={ref} className="mobile-header" style={{display:'flex',justifyContent:'space-between',paddingBottom:'50px'}}>
             <div className="mobile-header-left">
               <Burger opened={drawerOpened} onClick={toggleDrawer} />
               <Drawer
@@ -182,16 +188,20 @@ export default function MainHeader() {
               </Drawer>
             </div>
             <div className="mobile-header-center" style={{textAlign:'center'}}>
-              <h1 style={{fontSize:'24px',fontFamily:'Open Sans',fontWeight:'600',marginTop:'0'}}>Sole Haven</h1>
+              <Link to={'/'} style={{textDecoration:'none'}}>
+              <h1 style={{fontSize:'24px',fontFamily:'Open Sans',fontWeight:'500',marginTop:'0',color:'black'}}>Sole Haven</h1></Link>
               </div>
             <div className="mobile-header-right" >
+              
+              { searchBox ? <SearchBox/> : <><IconSearch  style={{cursor:'pointer',marginRight:'20px'}} onClick={ handleSearchBoxOpen}  color='grey'/> 
+              
               <Link to={"/wishlist"}>
                 <IconHeart color='skyblue' stroke={1.3} />
               </Link>
               <Link to={"/cart"}>
                 <IconShoppingCart  color='blue' style={{paddingLeft:'20px'}}  stroke={1.3} />
                 <Badge>{cartQty}</Badge>
-              </Link>
+              </Link></>  }
               </div>
                 
 
